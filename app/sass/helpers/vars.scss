@@ -1,0 +1,41 @@
+// Variables
+
+// Font Families
+$default-font: 'StarJedi';
+
+// Font Sizes
+$ftz-mini:        10px;
+$ftz-extra-small: 12px;
+$ftz-small:       14px;
+$ftz-normal:      16px;
+$ftz-large:       18px;
+$ftz-extra-large: 20px;
+$ftz-maxi:        22px;
+
+// Font Weights
+$fw-lighter: lighter;
+$fw-300:     300;
+$fw-400:     400;
+$fw-700:     700;
+$fw-bolder:  bolder;
+
+// Line Heights
+$lh-base:    1.5;
+$lh-heading: 1.2;
+
+// Colors
+$white: #fff;
+$black: #000;
+$orange: #ffa500;
+
+// Utilities
+$border-r-5: 5px;
+$border-r-10: 10px;
+$transition: all 0.3s ease-in-out;
+$transparent: rgba(0, 0, 0, 0.01);
+
+// Z-Index
+$z-index-1: 1;
+$z-index-2: 2;
+$z-index-3: 3;
+$z-index-4: 4;

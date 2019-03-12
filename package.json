@@ -1,0 +1,55 @@
+{
+  "name": "BB8",
+  "version": "0.0.0",
+  "description": "Starter kit for automating tasks in everyday front-end development.",
+  "author": "Ramil Mamedov",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:RamilMamedo/BB8.git"
+  },
+  "scripts": {
+    "start": "yarn && node init.js",
+    "dev": "gulp",
+    "watch": "gulp watch",
+    "build": "gulp build"
+  },
+  "dependencies": {
+    "gulp": "4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "autoprefixer": "^9.0.1",
+    "browser-sync": "^2.24.4",
+    "css-declaration-sorter": "^4.0.1",
+    "css-mqpacker": "^7.0.0",
+    "cssnano": "^4.0.4",
+    "del": "^3.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-favicons": "^2.3.0",
+    "gulp-html-beautify": "^1.0.1",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^7.0.1",
+    "gulp-purifycss": "^0.2.0",
+    "gulp-rename": "^1.3.0",
+    "gulp-rigger": "^0.5.8",
+    "gulp-sass": "^4.0.1",
+    "gulp-size": "^3.0.0",
+    "gulp-stylelint": "^8.0.0",
+    "gulp-svg-sprite": "^1.5.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-webp": "^4.0.1",
+    "stylelint": "^9.10.1",
+    "stylelint-config-recommended": "^2.1.0"
+  }
+}

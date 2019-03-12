@@ -1,0 +1,11 @@
+.DS_Store
+.Trashes
+.idea
+.vscode
+_config.yml
+ehthumbs.db
+Thumbs.db
+node_modules
+dist
+yarn.lock
+package-lock.json

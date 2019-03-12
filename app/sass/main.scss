@@ -1,0 +1,32 @@
+@import 'helpers/helpers', 'lib/libs', 'components/components',
+  'partials/partials';
+
+/*!   === Custom Font's  ===   */
+@include font-face('StarJedi', '../fonts/StarJedi/StarJedi');
+
+@include placeholder {
+  color: $black;
+}
+
+@include selection {
+  color: $white;
+  background-color: $orange;
+}
+
+/*!   === Main CSS ===   */
+body {
+  color: $white;
+  background-color: #444;
+  font-family: $default-font;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 100px;
+  letter-spacing: 2px;
+}
+
+//  Pages
+@import 'index.scss';
