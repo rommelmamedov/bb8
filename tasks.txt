@@ -1,10 +1,9 @@
 Needs to add:
-- website of BB8
 - jquery
 - html head parts
 - credentials
 - favicon config files
 - readme badges
 
-<img src="https://user-images.githubusercontent.com/38986496/53794293-20fb1880-3f49-11e9-9ac7-380b8ce6dbb1.png" alt="BB8" width="38" height="38"/>
-![Tasks](https://user-images.githubusercontent.com/38986496/53797622-f95b7e80-3f4f-11e9-80b5-913b32098687.png)
+![Dev Mode](https://user-images.githubusercontent.com/38986496/53797621-f8c2e800-3f4f-11e9-9188-80e0c7704fa4.png)
+![Plugins](https://user-images.githubusercontent.com/38986496/53797620-f8c2e800-3f4f-11e9-8a51-3abf34dcb4ec.png)

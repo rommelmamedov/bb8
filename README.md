@@ -1,4 +1,4 @@
-# BB8 - Starter Kit
+# BB8 - Starter Kit <img src="https://user-images.githubusercontent.com/38986496/54271996-20433180-459c-11e9-8ba1-198fa1147ef4.png" alt="BB8" width="38" height="38"/>
 
 Starter kit for automating tasks in everyday front-end development. 👨🏻‍💻 ⚡️ 🛠  ✨ 🤖
 
@@ -44,7 +44,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 
 ## Development & Production 🚀
 
-![Dev Mode](https://user-images.githubusercontent.com/38986496/53797621-f8c2e800-3f4f-11e9-9188-80e0c7704fa4.png)
+![Dev Mode](https://user-images.githubusercontent.com/38986496/54272233-aeb7b300-459c-11e9-8eeb-82c21ca5fb62.png)
 
 > You can custom setup the project at any time and specify the dependencies that you need in the file **package.json**
 
@@ -91,7 +91,7 @@ No configuration or complicated folder structures, just the ready files you need
 
 ## Plugins 🔌
 
-![Plugins](https://user-images.githubusercontent.com/38986496/53797620-f8c2e800-3f4f-11e9-8a51-3abf34dcb4ec.png)
+![Plugins](https://user-images.githubusercontent.com/38986496/54272234-aeb7b300-459c-11e9-9547-9633ec15e51c.png)
 
 - [del](https://www.npmjs.com/package/del) — for deleting files and folders;
 - [browser-sync](https://browsersync.io/docs/gulp) — time-saving synchronized browser testing and live webpage reload when making changes to your project files;
