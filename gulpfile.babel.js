@@ -39,7 +39,8 @@ const $ = plugins(),
         favicon: './app/credentials/favicon.png',
         svgIcons: './app/img/svg-icons/*.svg'
       },
-      fonts: './app/fonts/**/*'
+      fonts: './app/fonts/**/*',
+      credentials: './app/credentials/'
     },
     dist: {
       root: './dist/',
@@ -47,7 +48,7 @@ const $ = plugins(),
       css: './dist/css/',
       img: {
         main: './dist/img/',
-        favicons: './dist/credentials/favicons/'
+        favicons: './app/credentials/favicons/'
       },
       fonts: './dist/fonts/'
     }
@@ -70,9 +71,9 @@ export const server = done => {
     port: 2020,
     open: true,
     notify: false
-//  https: true,
-//  tunnel: true,
-//  tunnel: 'BB8' //  Demonstration page: http://BB8.localtunnel.me
+    //  https: true,
+    //  tunnel: true,
+    //  tunnel: 'BB8' //  Demonstration page: http://BB8.localtunnel.me
   });
   done();
 };
@@ -121,7 +122,7 @@ export const img = () => {
           imagemin.svgo({ plugins: [svgOptions] })
         ])
       )
-//    .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
+      //    .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
       .pipe(gulp.dest(paths.dist.img.main))
       .pipe($.size({ title: 'Image Size:' }))
       .pipe($.debug({ title: 'Image File:' }))
@@ -135,35 +136,46 @@ export const img = () => {
  **/
 export const favicons = () => {
   const settings = {
-    appName: 'BB8',
-    appShortName: 'BB8',
-    appDescription:
-      'Starter kit for automating tasks in everyday front-end development.',
-    developerName: 'Ramil Mamedov',
-    dir: 'ltr',
-    lang: 'en-US',
-    background: '#fff',
-    theme_color: '#fff',
-    appleStatusBarStyle: 'black-translucent',
-    icons: {
-      android: true,
-      windows: true,
-      favicons: true,
-      appleIcon: true,
-      coast: false,
-      yandex: false,
-      firefox: false,
-      appleStartup: false
-    }
-  };
-  return gulp
-    .src(paths.app.images.favicon, { since: gulp.lastRun(favicons) })
-    .pipe($.plumber())
-    .pipe($.newer(paths.dist.img.favicons))
-    .pipe($.favicons(settings))
-    .pipe($.size({ title: 'Favicon Size:' }))
-    .pipe($.debug({ title: 'Favicon Files:' }))
-    .pipe(gulp.dest(paths.dist.img.favicons));
+      appName: 'BB8',
+      appShortName: 'BB8',
+      appDescription:
+        'Starter kit for automating tasks in everyday front-end development.',
+      developerName: 'Ramil Mamedov',
+      dir: 'ltr',
+      lang: 'en-US',
+      background: '#fff',
+      theme_color: '#fff',
+      appleStatusBarStyle: 'black-translucent',
+      icons: {
+        android: true,
+        windows: true,
+        favicons: true,
+        appleIcon: true,
+        coast: false,
+        yandex: false,
+        firefox: false,
+        appleStartup: false
+      }
+    },
+    credentials = $.filter(['*.json', '*.ico', '*.xml'], {
+      restore: true,
+      passthrough: false
+    }),
+    stream = gulp
+      .src(paths.app.images.favicon)
+      .pipe($.plumber())
+      .pipe($.newer(paths.dist.img.favicons))
+      .pipe($.favicons(settings))
+      .pipe($.size({ title: 'Favicon Size:' }))
+      .pipe($.debug({ title: 'Favicon Files:' }))
+      // Filter a subset of the files
+      .pipe(credentials)
+      .pipe(gulp.dest(paths.app.credentials));
+
+  // Use filtered files as a gulp file source
+  credentials.restore.pipe(gulp.dest(paths.dist.img.favicons));
+
+  return stream;
 };
 
 /**
@@ -216,7 +228,7 @@ export const html = () => {
       .pipe($.plumber())
       .pipe($.rigger())
       .pipe($.htmlBeautify({ indent_size: 2, preserve_newlines: false }))
-//    .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
+      //    .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
       .pipe(gulp.dest(paths.dist.root))
       .pipe($.size({ title: 'HTML Size:' }))
       .pipe($.debug({ title: 'HTML File:' }))
@@ -249,7 +261,7 @@ export const css = () => {
       .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
       .pipe(gulp.dest(paths.dist.css))
-//    .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
+      //    .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
       .pipe($.size({ title: 'CSS Size:' }))
       .pipe($.debug({ title: 'CSS File:' }))
       .on('end', reload)
@@ -261,16 +273,18 @@ export const css = () => {
  * For more about used css here: {@link https://bit.ly/2XPqEin#js}
  **/
 export const js = () => {
-  return gulp
-    .src(paths.app.scripts.main)
-    .pipe($.plumber())
-    .pipe($.babel({ presets: ['@babel/preset-env'] }))
-    .pipe(gulp.dest(paths.dist.js))
-//  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
-//  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
-    .pipe($.size({ title: 'JS Size:' }))
-    .pipe($.debug({ title: 'JS Files:' }))
-    .on('end', reload);
+  return (
+    gulp
+      .src(paths.app.scripts.main)
+      .pipe($.plumber())
+      .pipe($.babel({ presets: ['@babel/preset-env'] }))
+      .pipe(gulp.dest(paths.dist.js))
+      //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
+      //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
+      .pipe($.size({ title: 'JS Size:' }))
+      .pipe($.debug({ title: 'JS Files:' }))
+      .on('end', reload)
+  );
 };
 
 //  Concatenating JavaScript libraries & minifying the final file.
