@@ -1,9 +1,0 @@
-Needs to add:
-- jquery
-- html head parts
-- credentials
-- favicon config files
-- readme badges
-
-![Dev Mode](https://user-images.githubusercontent.com/38986496/53797621-f8c2e800-3f4f-11e9-9188-80e0c7704fa4.png)
-![Plugins](https://user-images.githubusercontent.com/38986496/53797620-f8c2e800-3f4f-11e9-8a51-3abf34dcb4ec.png)

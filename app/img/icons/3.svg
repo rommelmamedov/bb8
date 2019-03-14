@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <path fill="none" stroke="#555" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M17.5 6a5.5 5.5 0 1 0-11 0s2 .5 5.5.5 5.5-.5 5.5-.5z"/>
+    <circle cx="12" cy="3" r=".5" fill="none" stroke="#555" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+    <circle cx="12" cy="15" r="2.5" fill="none" stroke="#555" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+    <path fill="none" stroke="#ffa500" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M9.513 6.872C9.51 6.915 9.5 6.956 9.5 7a2.5 2.5 0 0 0 5 0c0-.044-.01-.085-.013-.128M20.128 12.513c-.043-.002-.084-.013-.128-.013a2.5 2.5 0 1 0 0 5c.044 0 .085-.01.128-.013M14.487 23.128c.002-.043.013-.084.013-.128a2.5 2.5 0 1 0-5 0c0 .044.01.085.013.128M3.872 17.487c.043.002.084.013.128.013a2.5 2.5 0 0 0 0-5c-.044 0-.085.01-.128.013"/>
+    <circle cx="13.5" cy="4.5" r=".5" fill="#555"/>
+    <path fill="none" stroke="#ffa500" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M7.5 2.837V.5"/>
+    <circle cx="12" cy="15" r="8.5" fill="none" stroke="#555" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+    <path fill="none" stroke="#ffa500" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M12 9.5v3M12 17.5v3M6.5 15h3M14.5 15h3"/>
+</svg>

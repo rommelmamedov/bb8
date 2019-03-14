@@ -26,6 +26,7 @@ const $ = plugins(),
         all: './app/**/*.html'
       },
       styles: {
+        root: './app/sass/',
         main: './app/sass/main.scss',
         all: './app/sass/**/*.scss'
       },
@@ -35,20 +36,23 @@ const $ = plugins(),
         libs: ['./app/js/lib/jquery.min.js']
       },
       images: {
+        root: './app/img/',
         main: './app/img/**/*',
-        favicon: './app/credentials/favicon.png',
-        svgIcons: './app/img/svg-icons/*.svg'
+        svgIcons: './app/img/icons/*.svg',
+        favicon: './app/credentials/favicon.png'
       },
       fonts: './app/fonts/**/*',
-      credentials: './app/credentials/'
+      credentials: {
+        main: './app/credentials/',
+        favicons: './app/credentials/favicons/'
+      }
     },
     dist: {
       root: './dist/',
       js: './dist/js/',
       css: './dist/css/',
       img: {
-        main: './dist/img/',
-        favicons: './app/credentials/favicons/'
+        main: './dist/img/'
       },
       fonts: './dist/fonts/'
     }
@@ -71,9 +75,9 @@ export const server = done => {
     port: 2020,
     open: true,
     notify: false
-    //  https: true,
-    //  tunnel: true,
-    //  tunnel: 'BB8' //  Demonstration page: http://BB8.localtunnel.me
+//  https: true,
+//  tunnel: true,
+//  tunnel: 'BB8' //  Demonstration page: http://BB8.localtunnel.me
   });
   done();
 };
@@ -103,8 +107,8 @@ export const img = () => {
     removeEmptyText: true,
     removeUnusedNS: true,
     collapseGroups: true
-  };
-  const webpOptions = {
+  },
+   webpOptions = {
     lossless: true,
     quality: 70,
     alphaQuality: 90
@@ -122,7 +126,7 @@ export const img = () => {
           imagemin.svgo({ plugins: [svgOptions] })
         ])
       )
-      //    .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
+//    .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
       .pipe(gulp.dest(paths.dist.img.main))
       .pipe($.size({ title: 'Image Size:' }))
       .pipe($.debug({ title: 'Image File:' }))
@@ -164,7 +168,7 @@ export const favicons = () => {
     stream = gulp
       .src(paths.app.images.favicon)
       .pipe($.plumber())
-      .pipe($.newer(paths.dist.img.favicons))
+      .pipe($.newer(paths.app.credentials.favicons))
       .pipe($.favicons(settings))
       .pipe($.size({ title: 'Favicon Size:' }))
       .pipe($.debug({ title: 'Favicon Files:' }))
@@ -173,7 +177,7 @@ export const favicons = () => {
       .pipe(gulp.dest(paths.app.credentials));
 
   // Use filtered files as a gulp file source
-  credentials.restore.pipe(gulp.dest(paths.dist.img.favicons));
+  credentials.restore.pipe(gulp.dest(paths.app.credentials.favicons));
 
   return stream;
 };
@@ -182,39 +186,51 @@ export const favicons = () => {
  * Creating SVG sprites.
  * For more about options: {@link https://github.com/jkphl/svg-sprite}
  **/
-export const svgSprites = () => {
+export const sprites = () => {
   const config = {
-    dest: './app/sprites/',
-    shape: {
-      // Set maximum dimensions
-      dimension: {
-        maxWidth: 32,
-        maxHeight: 32
+      dest: './',
+      shape: {
+        // Set maximum dimensions
+        dimension: {
+          maxWidth: 48,
+          maxHeight: 48
+        },
+        // Add padding
+        spacing: {
+          padding: 10
+        }
       },
-      // Add padding
-      spacing: {
-        padding: 10
-      }
-    },
-    mode: {
-      css: {
-        dest: './sprites/',
-        sprite: 'sprite.svg',
-        bust: false,
-        dimensions: true,
-        render: {
-          scss: true
+      mode: {
+        css: {
+          dest: '.',
+          sprite: 'sprite.svg',
+          layout: 'vertical',
+          bust: false,
+          dimensions: true,
+          render: {
+            scss: true
+          }
         }
       }
-    }
-  };
-  return gulp
-    .src(paths.app.images.svgIcons)
-    .pipe($.plumber())
-    .pipe($.svgSprite(config))
-    .pipe($.size({ title: 'SVG Sprite Size:' }))
-    .pipe($.debug({ title: 'SVG Sprite File:' }))
-    .pipe(gulp.dest(paths.app.root));
+    },
+    scss = $.filter(['*.scss'], {
+      restore: true,
+      passthrough: false
+    }),
+    stream = gulp
+      .src(paths.app.images.svgIcons)
+      .pipe($.plumber())
+      .pipe($.svgSprite(config))
+      .pipe($.size({ title: 'SVG Sprite Size:' }))
+      .pipe($.debug({ title: 'SVG Sprite File:' }))
+      // Filter a subset of the files
+      .pipe(scss)
+      .pipe(gulp.dest(paths.app.styles.root));
+
+  // Use filtered files as a gulp file source
+  scss.restore.pipe(gulp.dest(paths.app.images.root));
+
+  return stream;
 };
 
 /**
@@ -228,7 +244,7 @@ export const html = () => {
       .pipe($.plumber())
       .pipe($.rigger())
       .pipe($.htmlBeautify({ indent_size: 2, preserve_newlines: false }))
-      //    .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
+//    .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
       .pipe(gulp.dest(paths.dist.root))
       .pipe($.size({ title: 'HTML Size:' }))
       .pipe($.debug({ title: 'HTML File:' }))
@@ -261,7 +277,7 @@ export const css = () => {
       .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
       .pipe(gulp.dest(paths.dist.css))
-      //    .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
+//    .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
       .pipe($.size({ title: 'CSS Size:' }))
       .pipe($.debug({ title: 'CSS File:' }))
       .on('end', reload)
@@ -279,8 +295,8 @@ export const js = () => {
       .pipe($.plumber())
       .pipe($.babel({ presets: ['@babel/preset-env'] }))
       .pipe(gulp.dest(paths.dist.js))
-      //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
-      //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
+  //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
+  //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
       .pipe($.size({ title: 'JS Size:' }))
       .pipe($.debug({ title: 'JS Files:' }))
       .on('end', reload)
