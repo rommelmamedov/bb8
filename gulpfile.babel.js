@@ -39,12 +39,14 @@ const $ = plugins(),
         root: './app/img/',
         main: './app/img/**/*',
         svgIcons: './app/img/icons/*.svg',
-        favicon: './app/credentials/favicon.png'
+        favicon: './app/img/favicons/favicon.png'
       },
       fonts: './app/fonts/**/*',
+      favicon: './app/credentials/favicon.svg',
       credentials: {
-        main: './app/credentials/',
-        favicons: './app/credentials/favicons/'
+        root: './app/credentials/',
+        main: './app/credentials/**/*',
+        favicons: './app/credentials/generated-favicons/'
       }
     },
     dist: {
@@ -54,7 +56,8 @@ const $ = plugins(),
       img: {
         main: './dist/img/'
       },
-      fonts: './dist/fonts/'
+      fonts: './dist/fonts/',
+      credentials: './dist/credentials/'
     }
   };
 
@@ -91,6 +94,18 @@ export const fonts = () => {
     .pipe(gulp.dest(paths.dist.fonts))
     .pipe($.size({ title: 'Font Size:' }))
     .pipe($.debug({ title: 'Font Files:' }))
+    .on('end', reload);
+};
+
+//  Moving website's credentials to the production directory.
+export const credentials = () => {
+  return gulp
+    .src(paths.app.credentials.main, { since: gulp.lastRun(credentials) })
+    .pipe($.plumber())
+    .pipe($.newer(paths.dist.root))
+    .pipe(gulp.dest(paths.dist.root))
+    .pipe($.size({ title: 'Credentials Size:' }))
+    .pipe($.debug({ title: 'Credentials Files:' }))
     .on('end', reload);
 };
 
@@ -144,29 +159,29 @@ export const favicons = () => {
       appShortName: 'BB8',
       appDescription:
         'Starter kit for automating tasks in everyday front-end development.',
-      developerName: 'Ramil Mamedov',
       dir: 'ltr',
       lang: 'en-US',
       background: '#fff',
       theme_color: '#fff',
       appleStatusBarStyle: 'black-translucent',
+      start_url: '/index.html?homescreen=1',
       icons: {
         android: true,
+        firefox: true,
         windows: true,
         favicons: true,
         appleIcon: true,
         coast: false,
         yandex: false,
-        firefox: false,
         appleStartup: false
       }
     },
-    credentials = $.filter(['*.json', '*.ico', '*.xml'], {
+    credentials = $.filter(['*','!*.png'], {
       restore: true,
       passthrough: false
     }),
     stream = gulp
-      .src(paths.app.images.favicon)
+      .src(paths.app.favicon)
       .pipe($.plumber())
       .pipe($.newer(paths.app.credentials.favicons))
       .pipe($.favicons(settings))
@@ -174,7 +189,7 @@ export const favicons = () => {
       .pipe($.debug({ title: 'Favicon Files:' }))
       // Filter a subset of the files
       .pipe(credentials)
-      .pipe(gulp.dest(paths.app.credentials));
+      .pipe(gulp.dest(paths.app.credentials.root));
 
   // Use filtered files as a gulp file source
   credentials.restore.pipe(gulp.dest(paths.app.credentials.favicons));
@@ -327,7 +342,7 @@ export const watchFiles = () => {
 //  Export Complex Tasks
 export const javascript = gulp.series(jsLibs, js);
 export const watch = gulp.parallel(watchFiles, server);
-export const main = gulp.parallel(css, img, fonts, html, javascript);
+export const main = gulp.parallel(css, img, fonts, credentials, html, javascript);
 export const build = gulp.series(clear, main);
 export const dev = gulp.series(main, watch);
 exports.default = dev;
