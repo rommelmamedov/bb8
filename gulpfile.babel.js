@@ -41,15 +41,15 @@ const $ = plugins(),
         svgIcons: './app/img/icons/*.svg'
       },
       fonts: './app/fonts/**/*',
-      credentials: {
-        root: './app/credentials/',
+      utils: {
+        root: './app/utils/',
         main: [
-          './app/credentials/**/*',
-          '!./app/credentials/favicon.{svg,png,jpg,jpeg}'
+          './app/utils/**/*',
+          '!./app/utils/favicon.{svg,png,jpg,jpeg}'
         ]
       },
       favicons: {
-        main: './app/credentials/favicon.png',
+        main: './app/utils/favicon.png',
         generated: './app/img/favicons/'
       }
     },
@@ -59,8 +59,8 @@ const $ = plugins(),
       img: './dist/img/',
       css: './dist/css/',
       fonts: './dist/fonts/',
-      credentials: {
-        main: './dist/credentials/',
+      utils: {
+        main: './dist/utils/',
         favicons: './dist/img/favicons/'
       }
     }
@@ -83,15 +83,15 @@ export const fonts = () => {
     .on('end', reload);
 };
 
-//  Moving website's credentials to the production directory.
-export const credentials = () => {
+//  Moving website's utils to the production directory.
+export const utils = () => {
   return gulp
-    .src(paths.app.credentials.main, { since: gulp.lastRun(credentials) })
+    .src(paths.app.utils.main, { since: gulp.lastRun(utils) })
     .pipe($.plumber())
     .pipe($.newer(paths.dist.root))
     .pipe(gulp.dest(paths.dist.root))
-    .pipe($.size({ title: 'Credentials Size:' }))
-    .pipe($.debug({ title: 'Credentials Files:' }))
+    .pipe($.size({ title: 'Utils Size:' }))
+    .pipe($.debug({ title: 'Utils Files:' }))
     .on('end', reload);
 };
 
@@ -126,7 +126,7 @@ export const favicons = () => {
       ['/firefox', './img/favicons/firefox'],
       ['/mstile', './img/favicons/mstile']
     ],
-    credentials = $.filter(['*', '!*.png'], {
+    utils = $.filter(['*', '!*.png'], {
       restore: true,
       passthrough: false
     }),
@@ -138,12 +138,12 @@ export const favicons = () => {
       .pipe($.size({ title: 'Favicon Size:' }))
       .pipe($.debug({ title: 'Favicon Files:' }))
       // Filter a subset of the files
-      .pipe(credentials)
+      .pipe(utils)
       .pipe($.batchReplace(replacePaths))
-      .pipe(gulp.dest(paths.app.credentials.root));
+      .pipe(gulp.dest(paths.app.utils.root));
 
   // Use filtered files as a gulp file source
-  credentials.restore.pipe(gulp.dest(paths.app.favicons.generated));
+  utils.restore.pipe(gulp.dest(paths.app.favicons.generated));
   return stream;
 };
 
@@ -210,9 +210,9 @@ export const server = done => {
     port: 2020,
     open: true,
     notify: false
-    //  https: true,
-    //  tunnel: true,
-    //  tunnel: 'BB8' //  Demonstration page: http://BB8.localtunnel.me
+//  https: true,
+//  tunnel: true,
+//  tunnel: 'BB8' //  Demonstration page: http://BB8.localtunnel.me
   });
   done();
 };
@@ -249,7 +249,7 @@ export const img = () => {
           imagemin.svgo({ plugins: [svgOptions] })
         ])
       )
-      //    .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
+//    .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
       .pipe(gulp.dest(paths.dist.img))
       .pipe($.size({ title: 'Image Size:' }))
       .pipe($.debug({ title: 'Image File:' }))
@@ -268,7 +268,7 @@ export const html = () => {
       .pipe($.plumber())
       .pipe($.rigger())
       .pipe($.htmlBeautify({ indent_size: 2, preserve_newlines: false }))
-      //    .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
+//    .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
       .pipe(gulp.dest(paths.dist.root))
       .pipe($.size({ title: 'HTML Size:' }))
       .pipe($.debug({ title: 'HTML File:' }))
@@ -301,7 +301,7 @@ export const css = () => {
       .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
       .pipe(gulp.dest(paths.dist.css))
-      //    .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
+//    .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
       .pipe($.size({ title: 'CSS Size:' }))
       .pipe($.debug({ title: 'CSS File:' }))
       .on('end', reload)
@@ -319,8 +319,8 @@ export const js = () => {
       .pipe($.plumber())
       .pipe($.babel({ presets: ['@babel/preset-env'] }))
       .pipe(gulp.dest(paths.dist.js))
-      //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
-      //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
+  //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
+  //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
       .pipe($.size({ title: 'JS Size:' }))
       .pipe($.debug({ title: 'JS Files:' }))
       .on('end', reload)
@@ -349,6 +349,7 @@ export const watchFiles = () => {
 };
 
 //  Export Complex Tasks
+export const credentials = gulp.series(favicons, utils, img);
 export const javascript = gulp.series(jsLibs, js);
 export const watch = gulp.parallel(watchFiles, server);
 export const main = gulp.parallel(css, img, fonts, html, javascript);
