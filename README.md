@@ -1,5 +1,10 @@
 # BB8 - Starter Kit <img src="https://user-images.githubusercontent.com/38986496/54271996-20433180-459c-11e9-8ba1-198fa1147ef4.png" alt="BB8" width="38" height="38"/>
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/facebook/create-react-app/pulls)
+[![dependencies Status](https://david-dm.org/RamilMamedo/bb8/status.svg)](https://david-dm.org/RamilMamedo/bb8)
+[![devDependencies Status](https://david-dm.org/RamilMamedo/bb8/dev-status.svg)](https://david-dm.org/RamilMamedo/bb8?type=dev)
+
+
 Starter kit for automating tasks in everyday front-end development. 👨🏻‍💻 ⚡️ 🛠  ✨ 🤖
 
 ## Installation ⬇️
@@ -70,7 +75,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 ## Folder Structures 📂
 
 The last command will create a directory called **`dist`** inside the current folder.<br>
-Inside that directory, it will generate the initial project structure:
+No configuration or complicated folder structure, just the ready files you need for production:
 
 ```
 dist
@@ -87,8 +92,6 @@ dist
 └── index.html
 ```
 
-No configuration or complicated folder structures, just the ready files you need for production.
-
 ## Plugins 🔌
 
 ![Plugins](https://user-images.githubusercontent.com/38986496/54272234-aeb7b300-459c-11e9-9547-9633ec15e51c.png)
@@ -99,8 +102,11 @@ No configuration or complicated folder structures, just the ready files you need
 - [gulp-newer](https://www.npmjs.com/package/gulp-newer) — for passing through only those source files that are newer than corresponding destination files;
 - [gulp-debug](https://www.npmjs.com/package/gulp-debug) — debug Vinyl file streams to see what files are run through your Gulp pipeline;
 - [gulp-rename](https://www.npmjs.com/package/gulp-rename) — for renaming files easily, adding suffixes and prefixes;
+- [gulp-filter](https://www.npmjs.com/package/gulp-filter) — enables you to work on a subset of the original files by filtering them using glob patterns;
 - [gulp-concat](https://www.npmjs.com/package/gulp-concat) — for concating files in the order that they are specified in the **gulp.src** function;
 - [gulp-plumber](https://www.npmjs.com/package/gulp-plumber) — prevent pipe breaking caused by errors from gulp plugins;
+- [gulp-load-plugins](https://www.npmjs.com/package/gulp-load-plugins) — loads gulp plugins from package dependencies and attaches them to an object of your choice;
+- [gulp-batch-replace](https://www.npmjs.com/package/gulp-batch-replace) — for replacing batch of strings in stream;
 
 #### HTML
 - [gulp-rigger](https://www.npmjs.com/package/gulp-rigger) — is a build time include engine for in general any type of text file that you wish to might want to "include" other files into;
