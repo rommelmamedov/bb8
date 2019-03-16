@@ -3,7 +3,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/RamilMamedo/bb8/pulls)
 [![dependencies Status](https://david-dm.org/RamilMamedo/bb8/status.svg)](https://david-dm.org/RamilMamedo/bb8)
 [![devDependencies Status](https://david-dm.org/RamilMamedo/bb8/dev-status.svg)](https://david-dm.org/RamilMamedo/bb8?type=dev)
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/RamilMamedo/bb8/blob/master/LICENCE)
 
 
 Starter kit for automating tasks in everyday front-end development. 👨🏻‍💻 ⚡️ 🛠  ✨ 🤖
@@ -23,8 +23,8 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 **3.** Clone repository either with SSH or with HTTPS.
 
 ```bash
-❯ $ git clone git@github.com:RamilMamedo/BB8.git
-❯ $ git clone https://github.com/RamilMamedo/BB8
+❯ $ git clone git@github.com:RamilMamedo/bb8.git
+❯ $ git clone https://github.com/RamilMamedo/bb8
 ```
 
 **4.** Install [gulp](https://gulpjs.com/).
@@ -38,7 +38,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 **5.** Go to the downloaded folder.
 
 ```bash
-❯ $ cd BB8
+❯ $ cd bb8
 ```
 
 **6.** To get start immediately.
@@ -54,7 +54,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 
 > You can custom setup the project at any time and specify the dependencies that you need in the file **package.json**
 
-**1.**  To installing dependencies manually.
+**1.**  To install dependencies manually.
 
 ```bash
 ❯ $ yarn
@@ -107,7 +107,7 @@ dist
 - [gulp-concat](https://www.npmjs.com/package/gulp-concat) — for concating files in the order that they are specified in the **gulp.src** function;
 - [gulp-plumber](https://www.npmjs.com/package/gulp-plumber) — prevent pipe breaking caused by errors from gulp plugins;
 - [gulp-load-plugins](https://www.npmjs.com/package/gulp-load-plugins) — loads gulp plugins from package dependencies and attaches them to an object of your choice;
-- [gulp-batch-replace](https://www.npmjs.com/package/gulp-batch-replace) — for replacing batch of strings in stream;
+- [gulp-batch-replace](https://www.npmjs.com/package/gulp-batch-replace) — for replacing a batch of strings in the stream;
 
 #### HTML
 - [gulp-rigger](https://www.npmjs.com/package/gulp-rigger) — is a build time include engine for in general any type of text file that you wish to might want to "include" other files into;
@@ -115,7 +115,7 @@ dist
 - [gulp-html-beautify](https://www.npmjs.com/package/gulp-html-beautify) — for beautifying HTML files;
 
 #### CSS
-- [csso](https://www.npmjs.com/package/csso) —  CSS minifier, cleaner, compressor and restructurer;
+- [csso](https://www.npmjs.com/package/csso) —  CSS minifier, cleaner, compressor, and restructurer;
 - [cssnano](https://www.npmjs.com/package/cssnano) — is a modern, modular compression tool written on top of the PostCSS ecosystem, which allows us to use a lot of powerful features in order to compact CSS appropriately;
 - [gulp-sass](https://www.npmjs.com/package/gulp-sass) — SCSS to CSS compiler;
 - [css-mqpacker](https://www.npmjs.com/package/css-mqpacker) — packing same CSS media query rules into one using PostCSS;
@@ -143,6 +143,7 @@ dist
   - for more: [imagemin](https://github.com/imagemin/imagemin);
 - [gulp-svg-sprites](https://www.npmjs.com/package/gulp-svg-sprites) — for creating SVG sprites;
 
+
 > Read more about image optimization here: [[imagemin-to-compress-images](https://web.dev/fast/use-imagemin-to-compress-images), [imagemin-plugins-difference](http://pointlessramblings.com/posts/pngquant_vs_pngcrush_vs_optipng_vs_pngnq)];
 >
 > Read more about webfont optimization here: [Web Font Optimization](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization);
@@ -151,4 +152,4 @@ dist
 
 ## License
 
-The code is available under the [MIT license](https://github.com/RamilMamedo/BB8/blob/master/LICENCE).
+The code is available under the [MIT license](https://github.com/RamilMamedo/bb8/blob/master/LICENCE).

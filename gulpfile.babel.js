@@ -15,7 +15,7 @@ import plugins from 'gulp-load-plugins';
 //  You can read more about sass compilers here: https://www.npmjs.com/package/gulp-sass
 sass.compiler = require('node-sass');
 
-//  Global constants
+//  Global Constants
 const $ = plugins(),
   reload = browserSync.reload,
   paths = {
@@ -66,7 +66,7 @@ const $ = plugins(),
     }
   };
 
-//  Removing production directory.
+//  Removing the production directory.
 export const clear = () => {
   return del(paths.dist.root);
 };
@@ -97,6 +97,9 @@ export const utils = () => {
 
 /**
  * Generating favicons.
+ * For generating favicons and their associated files you need to run `gulp favicons` command in terminal.
+ * Default input file source for favicon **`./app/utils/favicon.png`**.
+ * Default output source for favicons icons **`./app/img/favicon/`**.
  * For more about options: {@link https://github.com/itgalaxy/favicons}
  **/
 export const favicons = () => {
@@ -147,8 +150,13 @@ export const favicons = () => {
   return stream;
 };
 
+// svgIcons: './app/img/icons/*.svg'
+
 /**
  * Creating SVG sprites.
+ * For creating SVG sprites you need to run `gulp sprites` command in terminal.
+ * Default input file source for SVG icons **`./app/img/icons/*.svg`**.
+ * Default output source for created sprite files **`./app/img/sprite.svg`** , **`./app/sass/sprite.scss`**.
  * For more about options: {@link https://github.com/jkphl/svg-sprite}
  **/
 export const sprites = () => {
@@ -259,7 +267,7 @@ export const img = () => {
 
 /**
  * Concatenation partials of HTML files and minify-beautify them by choice.
- * For more about used html here: {@link https://bit.ly/2XPqEin#html}
+ * For more about used HTML here: {@link https://bit.ly/2XPqEin#html}
  **/
 export const html = () => {
   return (
@@ -278,7 +286,7 @@ export const html = () => {
 
 /**
  * Compiling SCSS, passing it through PostCSS plugins, cleaning unnecessary CSS parts, minifying and renaming the final file.
- * For more about used css here: {@link https://bit.ly/2XPqEin#css}
+ * For more about used CSS here: {@link https://bit.ly/2XPqEin#css}
  **/
 export const css = () => {
   const styleLintSetting = {
@@ -309,8 +317,8 @@ export const css = () => {
 };
 
 /**
- * Compiling core script file with Babel.
- * For more about used css here: {@link https://bit.ly/2XPqEin#js}
+ * Compiling the core script file with Babel.
+ * For more about used JS here: {@link https://bit.ly/2XPqEin#js}
  **/
 export const js = () => {
   return (
@@ -352,7 +360,7 @@ export const watchFiles = () => {
 export const credentials = gulp.series(favicons, utils, img);
 export const javascript = gulp.series(jsLibs, js);
 export const watch = gulp.parallel(watchFiles, server);
-export const main = gulp.parallel(css, img, fonts, html, javascript);
+export const main = gulp.parallel(css, img, fonts, utils, html, javascript);
 export const build = gulp.series(clear, main);
 export const dev = gulp.series(main, watch);
 exports.default = dev;
