@@ -98,8 +98,8 @@ export const utils = () => {
 /**
  * Generating favicons.
  * For generating favicons and their associated files you need to run `gulp favicons` command in terminal.
- * Default input file source for favicon **`./app/utils/favicon.png`**.
- * Default output source for favicons icons **`./app/img/favicon/`**.
+ * Default input file source for favicon @file `./app/utils/favicon.png`.
+ * Default output source for favicons icons @file `./app/img/favicon/`.
  * For more about options: {@link https://github.com/itgalaxy/favicons}
  **/
 export const favicons = () => {
@@ -150,13 +150,11 @@ export const favicons = () => {
   return stream;
 };
 
-// svgIcons: './app/img/icons/*.svg'
-
 /**
  * Creating SVG sprites.
  * For creating SVG sprites you need to run `gulp sprites` command in terminal.
- * Default input file source for SVG icons **`./app/img/icons/*.svg`**.
- * Default output source for created sprite files **`./app/img/sprite.svg`** , **`./app/sass/sprite.scss`**.
+ * Default input file source for SVG icons @file `./app/img/icons/*.svg`.
+ * Default output source for created sprite files @file `./app/img/sprite.svg`, @file `./app/sass/sprite.scss`.
  * For more about options: {@link https://github.com/jkphl/svg-sprite}
  **/
 export const sprites = () => {
@@ -257,7 +255,7 @@ export const img = () => {
           imagemin.svgo({ plugins: [svgOptions] })
         ])
       )
-//    .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
+  //  .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
       .pipe(gulp.dest(paths.dist.img))
       .pipe($.size({ title: 'Image Size:' }))
       .pipe($.debug({ title: 'Image File:' }))
@@ -276,7 +274,7 @@ export const html = () => {
       .pipe($.plumber())
       .pipe($.rigger())
       .pipe($.htmlBeautify({ indent_size: 2, preserve_newlines: false }))
-//    .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
+  //  .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
       .pipe(gulp.dest(paths.dist.root))
       .pipe($.size({ title: 'HTML Size:' }))
       .pipe($.debug({ title: 'HTML File:' }))
@@ -309,7 +307,7 @@ export const css = () => {
       .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
       .pipe(gulp.dest(paths.dist.css))
-//    .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
+  //  .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
       .pipe($.size({ title: 'CSS Size:' }))
       .pipe($.debug({ title: 'CSS File:' }))
       .on('end', reload)
