@@ -7,6 +7,7 @@
 import del from 'del';
 import gulp from 'gulp';
 import sass from 'gulp-sass';
+import merge from 'merge-stream';
 import imagemin from 'gulp-imagemin';
 import browserSync from 'browser-sync';
 import plugins from 'gulp-load-plugins';
@@ -43,10 +44,7 @@ const $ = plugins(),
       fonts: './app/fonts/**/*',
       utils: {
         root: './app/utils/',
-        main: [
-          './app/utils/**/*',
-          '!./app/utils/favicon.{svg,png,jpg,jpeg}'
-        ]
+        main: ['./app/utils/**/*', '!./app/utils/favicon.{svg,png,jpg,jpeg}']
       },
       favicons: {
         main: './app/utils/favicon.png',
@@ -71,28 +69,25 @@ export const clear = () => {
   return del(paths.dist.root);
 };
 
-//  Moving fonts to the production directory.
-export const fonts = () => {
-  return gulp
-    .src(paths.app.fonts, { since: gulp.lastRun(fonts) })
-    .pipe($.plumber())
-    .pipe($.newer(paths.dist.fonts))
-    .pipe(gulp.dest(paths.dist.fonts))
-    .pipe($.size({ title: 'Font Size:' }))
-    .pipe($.debug({ title: 'Font Files:' }))
-    .on('end', reload);
-};
-
-//  Moving website's utils to the production directory.
+//  Moving website's utils, credentials, fonts, and etc. to the production directory.
 export const utils = () => {
-  return gulp
-    .src(paths.app.utils.main, { since: gulp.lastRun(utils) })
-    .pipe($.plumber())
-    .pipe($.newer(paths.dist.root))
-    .pipe(gulp.dest(paths.dist.root))
-    .pipe($.size({ title: 'Utils Size:' }))
-    .pipe($.debug({ title: 'Utils Files:' }))
-    .on('end', reload);
+  const credentials = gulp
+      .src(paths.app.utils.main, { since: gulp.lastRun(utils) })
+      .pipe($.plumber())
+      .pipe($.newer(paths.dist.root))
+      .pipe(gulp.dest(paths.dist.root))
+      .pipe($.size({ title: 'Utils Size:' }))
+      .pipe($.debug({ title: 'Utils Files:' }))
+      .on('end', reload),
+    fonts = gulp
+      .src(paths.app.fonts, { since: gulp.lastRun(utils) })
+      .pipe($.plumber())
+      .pipe($.newer(paths.dist.fonts))
+      .pipe(gulp.dest(paths.dist.fonts))
+      .pipe($.size({ title: 'Font Size:' }))
+      .pipe($.debug({ title: 'Font Files:' }))
+      .on('end', reload);
+  return merge(credentials, fonts);
 };
 
 /**
@@ -106,7 +101,8 @@ export const favicons = () => {
   const settings = {
       appName: 'BB8',
       appShortName: 'BB8',
-      appDescription: 'Starter kit for automating tasks in everyday front-end development.',
+      appDescription:
+        'Starter kit for automating tasks in everyday front-end development.',
       dir: 'ltr',
       lang: 'en-US',
       background: '#fff',
@@ -234,8 +230,7 @@ export const img = () => {
       removeComments: true,
       removeEmptyAttrs: true,
       removeEmptyText: true,
-      removeUnusedNS: true,
-      collapseGroups: true
+      removeUnusedNS: true
     },
     webpOptions = {
       lossless: true,
@@ -315,12 +310,12 @@ export const css = () => {
 };
 
 /**
- * Compiling the core script file with Babel.
+ * Compiling the main script file with Babel.
+ * Concatenating JavaScript libraries & minifying the final file.
  * For more about used JS here: {@link https://bit.ly/2XPqEin#js}
  **/
 export const js = () => {
-  return (
-    gulp
+  const main = gulp
       .src(paths.app.scripts.main)
       .pipe($.plumber())
       .pipe($.babel({ presets: ['@babel/preset-env'] }))
@@ -329,36 +324,31 @@ export const js = () => {
   //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
       .pipe($.size({ title: 'JS Size:' }))
       .pipe($.debug({ title: 'JS Files:' }))
-      .on('end', reload)
-  );
-};
-
-//  Concatenating JavaScript libraries & minifying the final file.
-export const jsLibs = () => {
-  return gulp
-    .src(paths.app.scripts.libs)
-    .pipe($.plumber())
-    .pipe($.uglify()) // (Optional) disable if you don't want to minify-uglify JS vendors.
-    .pipe($.concat('vendors.min.js'))
-    .pipe(gulp.dest(paths.dist.js))
-    .pipe($.size({ title: 'JS Libs Size:' }))
-    .pipe($.debug({ title: 'JS Libs Files:' }))
-    .on('end', reload);
+      .on('end', reload),
+    libs = gulp
+      .src(paths.app.scripts.libs)
+      .pipe($.plumber())
+      .pipe($.uglify()) // (Optional) disable if you don't want to minify-uglify JS vendors.
+      .pipe($.concat('vendors.min.js'))
+      .pipe(gulp.dest(paths.dist.js))
+      .pipe($.size({ title: 'JS Libs Size:' }))
+      .pipe($.debug({ title: 'JS Libs Files:' }))
+      .on('end', reload);
+  return merge(main, libs);
 };
 
 //  Watching HTML, CSS, JS & media files for changes.
 export const watchFiles = () => {
   gulp.watch(paths.app.images.main, img);
   gulp.watch(paths.app.styles.all, css);
-  gulp.watch(paths.app.scripts.all, javascript);
+  gulp.watch(paths.app.scripts.all, js);
   gulp.watch(paths.app.html.all, html);
 };
 
 //  Export Complex Tasks
 export const credentials = gulp.series(favicons, utils, img);
-export const javascript = gulp.series(jsLibs, js);
+export const main = gulp.parallel(css, img, utils, html, js);
 export const watch = gulp.parallel(watchFiles, server);
-export const main = gulp.parallel(css, img, fonts, utils, html, javascript);
 export const build = gulp.series(clear, main);
 export const dev = gulp.series(main, watch);
 exports.default = dev;

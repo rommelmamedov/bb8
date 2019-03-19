@@ -98,6 +98,7 @@ dist
 ![Plugins](https://user-images.githubusercontent.com/38986496/54272234-aeb7b300-459c-11e9-9547-9633ec15e51c.png)
 
 - [del](https://www.npmjs.com/package/del) — for deleting files and folders;
+- [merge-stream](https://www.npmjs.com/package/merge-stream) — for merging multiple streams into one interleaved stream;
 - [browser-sync](https://browsersync.io/docs/gulp) — time-saving synchronized browser testing and live webpage reload when making changes to your project files;
 - [gulp-size](https://www.npmjs.com/package/gulp-size) — Logs out the total size of files in the stream and optionally the individual file-sizes;
 - [gulp-newer](https://www.npmjs.com/package/gulp-newer) — for passing through only those source files that are newer than corresponding destination files;
