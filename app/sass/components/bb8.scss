@@ -27,7 +27,7 @@
     background-color: $white;
     background-image: radial-gradient(ellipse at top right,$orange 50px,transparent 50px),radial-gradient(ellipse at bottom right,$orange 50px,transparent 50px),radial-gradient(ellipse at top left,$orange 50px,transparent 50px),radial-gradient(ellipse at bottom left,$orange 50px,transparent 50px),radial-gradient(circle at 100px 100px,transparent 60px,white 61px),radial-gradient(circle at 100px 100px,transparent 44px,$orange 45px),linear-gradient(to bottom,transparent 90px,white 90px,white 93px,transparent 93px,transparent 99px,white 99px,white 103px,transparent 103px,transparent 108px,white 108px,white 112px,transparent 112px),radial-gradient(circle at 100px 100px,#aaa 24px,transparent 25px),radial-gradient(circle at 100px 100px,white 28px,transparent 29px),linear-gradient(-45deg,transparent 132px,white 132px,white 136px,$orange 136px,$orange 152px,white 152px,white 155px,transparent 155px),linear-gradient(45deg,transparent 129px,white 129px,white 133px,$orange 133px,$orange 150px,white 150px,white 153px,transparent 153px),linear-gradient(to bottom,transparent 75px,white 75px,white 119px,transparent 119px),radial-gradient(circle at 100px 100px,#aaa 40px,transparent 41px),radial-gradient(circle at 100px 100px,white 44px,transparent 45px);
     border-radius: 50%;
-    z-index: -2;
+    z-index: $z-3;
     animation: spin .8s infinite linear
   }
   &:after {
@@ -39,7 +39,7 @@
     border-radius: 50%;
     background-image: linear-gradient(to bottom,rgba(0,0,0,0.6) 10px,transparent 15px);
     box-shadow: inset 0 -20px 30px rgba(0,0,0,0.5);
-    z-index: -1;
+    z-index: $z-4;
   }
 }
 
