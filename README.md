@@ -79,27 +79,33 @@ The last command will create a directory called **`dist`** inside the current fo
 No configuration or complicated folder structure, just the ready files you need for production:
 
 ```
-dist
+./dist/
 ├── css
 │   └── main.min.css
 ├── fonts
-│   └── .woff, .woff2
+│   ├── Fontello
+│   │   └── *.{eot,svg,ttf,woff,woff2}
+│   └── StarJedi
+│       └── *.{woff,woff2}
 ├── img
-│   └── .svg, .png, .jpg
+│   └── icons
+│       └── *.svg
 ├── js
 │   ├── core.js
 │   └── vendors.min.js
-│
-└── index.html
+├── index.html
+├── robots.txt
+└── service-worker.js
 ```
+> 7 directories, 16 files
 
 ## Plugins 🔌
 
 ![Plugins](https://user-images.githubusercontent.com/38986496/54272234-aeb7b300-459c-11e9-9547-9633ec15e51c.png)
 
 - [del](https://www.npmjs.com/package/del) — for deleting files and folders;
-- [merge-stream](https://www.npmjs.com/package/merge-stream) — for merging multiple streams into one interleaved stream;
 - [browser-sync](https://browsersync.io/docs/gulp) — time-saving synchronized browser testing and live webpage reload when making changes to your project files;
+- [merge-stream](https://www.npmjs.com/package/merge-stream) — for merging multiple streams into one interleaved stream;
 - [gulp-size](https://www.npmjs.com/package/gulp-size) — Logs out the total size of files in the stream and optionally the individual file-sizes;
 - [gulp-newer](https://www.npmjs.com/package/gulp-newer) — for passing through only those source files that are newer than corresponding destination files;
 - [gulp-debug](https://www.npmjs.com/package/gulp-debug) — debug Vinyl file streams to see what files are run through your Gulp pipeline;

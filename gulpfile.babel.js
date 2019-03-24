@@ -6,18 +6,13 @@
 //  Required Modules
 import del from 'del';
 import gulp from 'gulp';
-import sass from 'gulp-sass';
 import merge from 'merge-stream';
-import imagemin from 'gulp-imagemin';
 import browserSync from 'browser-sync';
 import plugins from 'gulp-load-plugins';
 
-//  You can choose whether to use Dart Sass or Node Sass by setting the sass.compiler property.
-//  You can read more about sass compilers here: https://www.npmjs.com/package/gulp-sass
-sass.compiler = require('node-sass');
-
 //  Global Constants
-const $ = plugins(),
+const
+  $ = plugins(),
   reload = browserSync.reload,
   paths = {
     app: {
@@ -64,6 +59,10 @@ const $ = plugins(),
     }
   };
 
+//  You can choose whether to use Dart Sass or Node Sass by setting the sass.compiler property.
+//  You can read more about sass compilers here: https://www.npmjs.com/package/gulp-sass
+$.sass().compiler = require('node-sass');
+
 //  Removing the production directory.
 export const clear = () => {
   return del(paths.dist.root);
@@ -71,7 +70,8 @@ export const clear = () => {
 
 //  Moving website's utils, credentials, fonts, and etc. to the production directory.
 export const utils = () => {
-  const credentials = gulp
+  const
+    credentials = gulp
       .src(paths.app.utils.main, { since: gulp.lastRun(utils) })
       .pipe($.plumber())
       .pipe($.newer(paths.dist.root))
@@ -98,11 +98,11 @@ export const utils = () => {
  * For more about options: {@link https://github.com/itgalaxy/favicons}
  **/
 export const favicons = () => {
-  const settings = {
+  const
+    settings = {
       appName: 'BB8',
       appShortName: 'BB8',
-      appDescription:
-        'Starter kit for automating tasks in everyday front-end development.',
+      appDescription: 'Starter kit for automating tasks in everyday front-end development.',
       dir: 'ltr',
       lang: 'en-US',
       background: '#fff',
@@ -154,7 +154,8 @@ export const favicons = () => {
  * For more about options: {@link https://github.com/jkphl/svg-sprite}
  **/
 export const sprites = () => {
-  const config = {
+  const
+    config = {
       dest: './',
       shape: {
         // Set maximum dimensions
@@ -224,7 +225,8 @@ export const server = done => {
  * For more about used image plugins here: {@link https://bit.ly/2XPqEin#img}
  **/
 export const img = () => {
-  const svgOptions = {
+  const
+    svgOptions = {
       removeViewBox: false,
       collapseGroups: true,
       removeComments: true,
@@ -243,11 +245,11 @@ export const img = () => {
       .pipe($.plumber())
       .pipe($.newer(paths.dist.img))
       .pipe(
-        imagemin([
-          imagemin.gifsicle({ interlaced: true }),
-          imagemin.jpegtran({ progressive: true }),
-          imagemin.optipng({ optimizationLevel: 5 }),
-          imagemin.svgo({ plugins: [svgOptions] })
+        $.imagemin([
+          $.imagemin.gifsicle({ interlaced: true }),
+          $.imagemin.jpegtran({ progressive: true }),
+          $.imagemin.optipng({ optimizationLevel: 5 }),
+          $.imagemin.svgo({ plugins: [svgOptions] })
         ])
       )
   //  .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
@@ -282,7 +284,8 @@ export const html = () => {
  * For more about used CSS here: {@link https://bit.ly/2XPqEin#css}
  **/
 export const css = () => {
-  const styleLintSetting = {
+  const
+    styleLintSetting = {
       debug: true,
       reporters: [{ formatter: 'string', console: true }]
     },
@@ -296,7 +299,7 @@ export const css = () => {
     gulp
       .src(paths.app.styles.main)
       .pipe($.plumber())
-      .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+      .pipe($.sass({ outputStyle: 'compressed' }))
       .pipe($.purifycss([paths.app.scripts.main, paths.app.html.all])) // (Optional) disable if you don't want to cut unused CSS.
       .pipe($.postcss(plugins)) // (Optional) disable if you don't want to use PostCSS plugins.
       .pipe($.csso())
@@ -315,7 +318,8 @@ export const css = () => {
  * For more about used JS here: {@link https://bit.ly/2XPqEin#js}
  **/
 export const js = () => {
-  const main = gulp
+  const
+    main = gulp
       .src(paths.app.scripts.main)
       .pipe($.plumber())
       .pipe($.babel({ presets: ['@babel/preset-env'] }))
@@ -347,7 +351,7 @@ export const watchFiles = () => {
 
 //  Export Complex Tasks
 export const credentials = gulp.series(favicons, utils, img);
-export const main = gulp.parallel(css, img, utils, html, js);
+export const main = gulp.parallel(img, utils, html, js, css);
 export const watch = gulp.parallel(watchFiles, server);
 export const build = gulp.series(clear, main);
 export const dev = gulp.series(main, watch);
