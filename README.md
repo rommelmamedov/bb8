@@ -118,8 +118,12 @@ No configuration or complicated folder structure, just the ready files you need 
 
 #### HTML
 - [gulp-rigger](https://www.npmjs.com/package/gulp-rigger) — is a build time include engine for in general any type of text file that you wish to might want to "include" other files into;
+- [gulp-htmllint](https://www.npmjs.com/package/gulp-htmllint) — linter for identifying and reporting on HTML code;
+  - for more: [htmllint](https://github.com/htmllint/htmllint/);
 - [gulp-htmlmin](https://www.npmjs.com/package/gulp-htmlmin) — for minifying HTML files;
 - [gulp-html-beautify](https://www.npmjs.com/package/gulp-html-beautify) — for beautifying HTML files;
+- [gulp-w3c-html-validator](https://www.npmjs.com/package/gulp-w3c-html-validator) — plugin to validate HTML using the [W3C Markup Validation Service](https://validator.w3.org/);
+
 
 #### CSS
 - [csso](https://www.npmjs.com/package/csso) —  CSS minifier, cleaner, compressor, and restructurer;

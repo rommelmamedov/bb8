@@ -1,0 +1,14 @@
+{
+    "attr-bans": ["dynsrc", "lowsrc", "align", "onload", "alink"],
+    "attr-no-dup": true,
+    "attr-no-unsafe-char": true,
+    "attr-quote-style": "quoted",
+    "doctype-first": false,
+    "id-class-style": false,
+    "indent-style": "spaces",
+    "indent-width": 2,
+    "tag-bans": ["font", "center", "dir", "menu", "embed"],
+    "tag-name-lowercase": true,
+    "tag-name-match": true,
+    "line-end-style": false
+}
