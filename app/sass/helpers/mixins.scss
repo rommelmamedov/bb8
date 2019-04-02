@@ -102,10 +102,17 @@
   }
 }
 
+//  Remove text-shadow in selection highlight:
+//  https://twitter.com/miketaylr/status/12228805301
+//
+//  Vendor-prefixed and regular ::selection selectors cannot be combined:
+//  https://stackoverflow.com/a/16982510/7133471
+//
+//  Customize the background color to match your design.
 //  Mixin for generating ::selection rules for selected text.
 @mixin selection {
-  ::selection { @content; }
-  ::-moz-selection { @content; }
+  ::selection { @content;  text-shadow: none; }
+  ::-moz-selection { @content;  text-shadow: none; }
 }
 
 //  Mixin for styling placeholders in HTML5 form elements.
@@ -138,6 +145,12 @@
   white-space: normal;
 }
 
+// Hide only visually, but have it available for screen readers:
+// https://snook.ca/archives/html_and_css/hiding-content-for-accessibility//
+// 1. For long content, line feeds are not interpreted as spaces and small width
+//    causes content to wrap 1 word per line:
+//    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+//
 //  Only display content to screen readers...
 @mixin sr-only {
   position: absolute;
