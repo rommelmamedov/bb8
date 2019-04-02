@@ -3,7 +3,7 @@
 
 <!--
   You can modify this file as you like.
-  A list of everything that *could* go in the head of your document https://gethead.info
+  A list of everything that could go in the head of your document https://gethead.info
 -->
 
 <head>
@@ -13,25 +13,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <!--  Perfecting, Preloading -->
   <!--
-
-  //  Uncomment this section if you need to prefetch Google Fonts.
-
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com/" />
-  <link rel="prefetch" href="https://fonts.googleapis.com/" />
-  <link rel="subresource" href="https://fonts.googleapis.com/" />
-  <link rel="preload" href="https://fonts.googleapis.com/" as="style" />
-
+  (Uncomment this section if you need to prefetch Google Fonts)
+  <link rel="preconnect" href="https://fonts.gstatic.com/" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com/" />
+  <link rel="preload" href="https://fonts.googleapis.com/your-font-here" as="style" />
+  <link rel="prefetch" href="https://fonts.googleapis.com/your-font-here" as="style" />
   -->
   <!--  Some SEO Tags -->
-  <link rel="index" href="index.html" />
-  <link rel="canonical" href="index.html" />
+  <link rel="index" href="https://example.com/" />
+  <link rel="canonical" href="https://example.com/" />
   <meta name="description" content="Starter pack for automating tasks in everyday front-end development. 🤖" />
   <!--  Facebook (Open Graph)  -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="BB8" />
   <meta property="og:site_name" content="BB8" />
   <meta property="og:image" content="" />
-  <meta property="og:url" content="./" />
+  <meta property="og:url" content="https://example.com/" />
   <meta property="og:see_also" content="R2D2" />
   <meta property="og:description" content="Starter pack for automating tasks in everyday front-end development. 🤖" />
   <!--  Google  -->
@@ -42,7 +39,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="BB8" />
   <meta name="twitter:image" content="" />
-  <meta name="twitter:url" content="./" />
+  <meta name="twitter:url" content="https://example.com/" />
   <meta name="twitter:description" content="Starter pack for automating tasks in everyday front-end development. 🤖" />
   <!--  Installation credentials for the Website -->
   <!--  Add to homescreen for Chrome on Android -->
@@ -54,8 +51,8 @@
   <meta name="apple-mobile-web-app-title" content="BB8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <!--  Windows 8 Tiles -->
-  <meta name="msapplication-starturl" content="./" />
+  <!--  Microsoft Windows Tiles -->
+  <meta name="msapplication-starturl" content="https://example.com/" />
   <meta name="msapplication-TileColor" content="#fff" />
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="msapplication-TileImage" content="144x144" />
@@ -70,11 +67,16 @@
   <link rel="apple-touch-icon" href="./img/favicons/apple-touch-icon-180x180.png" sizes="180x180" type="image/png" />
   <link rel="apple-touch-icon-precomposed" href="./img/favicons/apple-touch-icon-precomposed.png" type="image/png" />
   <!--  Fonts -->
-  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/" /> -->
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/your-font-here" /> -->
   <!--  Style Sheets -->
-  <link rel="stylesheet" href="css/main.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/main.min.css" />
 </head>
 
 <body>
+  <!--[if IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please
+      <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.
+    </p>
+  <![endif]-->
   //= ../components/header.html
   <main class="container">

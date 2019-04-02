@@ -294,6 +294,11 @@ export const html = () => {
  **/
 export const css = () => {
   const
+    //  Files to search through for used classes (HTML, JS and etc., basically anything that uses CSS selectors).
+    purifyContent = [
+      './dist/js/*.js',
+      './dist/*.html'
+    ],
     styleLintSetting = {
       debug: true,
       reporters: [{ formatter: 'string', console: true }]
@@ -309,7 +314,7 @@ export const css = () => {
       .src(paths.app.styles.main)
       .pipe($.plumber())
       .pipe($.sass({ outputStyle: 'compressed' }))
-      .pipe($.purifycss([paths.app.scripts.main, paths.app.html.all])) // (Optional) disable if you don't want to cut unused CSS.
+      .pipe($.purifycss(purifyContent)) // (Optional) disable if you don't want to cut unused CSS.
       .pipe($.postcss(plugins)) // (Optional) disable if you don't want to use PostCSS plugins.
       .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))

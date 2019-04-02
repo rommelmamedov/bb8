@@ -46,6 +46,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 ```bash
 ❯ $ yarn run start
 ```
+
 > If you don’t want to install or configure tools, plugins or any other dependencies. So that you can focus on the code, just create a project, and you’re good to go.
 
 ## Development & Production 🚀
@@ -65,6 +66,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 ```bash
 ❯ $ yarn run dev
 ```
+
 > If you did everything correctly, it should open a browser with a local server on port **[2020](http://localhost:2020)** and a working **browser-sync**.
 
 **3.** To finalize the project for production.
@@ -161,6 +163,28 @@ No configuration or complicated folder structure, just the ready files you need 
 >
 > Simple [online tool](https://transfonter.org/) for generating CSS @font-face and transforming difference font formats;
 
-## License
+## Browser Support :computer:
 
-The code is available under the [MIT license](https://github.com/RamilMamedo/bb8/blob/master/LICENCE).
+At present, BB8 supports the last two versions of the following browsers:
+
+- Chrome
+- Edge
+- Firefox
+- Safari
+- Opera
+- Internet Explorer
+
+This doesn't mean that BB8 cannot be used in older browsers, just that it's focus ensure compatibility with the ones mentioned above.
+
+## Contributing & Troubleshooting :bug:
+
+Contributions, questions and comments are all welcome and encouraged.
+
+If you find yourself running into issues during installation or running the tools, please open an issue. BB8 would be happy to discuss how they can be solved.
+
+- [Bug Reports](https://github.com/RamilMamedo/bb8/issues)
+- [Pull Requests](https://github.com/RamilMamedo/bb8/pulls)
+
+## License :scroll:
+
+The code is available under the [MIT license](https://github.com/RamilMamedo/bb8/blob/master/LICENCE) Copyright © 2019.
