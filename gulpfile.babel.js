@@ -9,6 +9,7 @@ import gulp from 'gulp';
 import merge from 'merge-stream';
 import browserSync from 'browser-sync';
 import plugins from 'gulp-load-plugins';
+import validator from 'gulp-w3c-html-validator';
 
 //  Global Constants
 const
@@ -29,7 +30,12 @@ const
       scripts: {
         main: './app/js/core.js',
         all: './app/js/**/*.js',
-        libs: ['./app/js/lib/jquery.min.js']
+        //  You can specify the path to JavaScript libs that you're going to use in this `libs` array,
+        //  so gulp will concat and minifying them into the one final file.
+        libs: [
+          './app/js/lib/jquery.min.js',
+          // './app/js/lib/bootstrap.min.js' // For example
+        ]
       },
       images: {
         root: './app/img/',
@@ -272,6 +278,9 @@ export const html = () => {
       .pipe($.rigger())
       .pipe($.htmlBeautify({ indent_size: 2, preserve_newlines: false }))
   //  .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
+  //  .pipe($.htmllint()) // (Optional) enable if you need to lint your HTML files.
+  //  .pipe(validator())  // (Optional) enable if you need to check the markup validity by W3C.
+  //  .pipe(validator.reporter()) // (Optional) enable if you need to check the markup validity by W3C.
       .pipe(gulp.dest(paths.dist.root))
       .pipe($.size({ title: 'HTML Size:' }))
       .pipe($.debug({ title: 'HTML File:' }))
@@ -285,6 +294,11 @@ export const html = () => {
  **/
 export const css = () => {
   const
+    //  Files to search through for used classes (HTML, JS and etc., basically anything that uses CSS selectors).
+    purifyContent = [
+      './dist/js/*.js',
+      './dist/*.html'
+    ],
     styleLintSetting = {
       debug: true,
       reporters: [{ formatter: 'string', console: true }]
@@ -300,12 +314,12 @@ export const css = () => {
       .src(paths.app.styles.main)
       .pipe($.plumber())
       .pipe($.sass({ outputStyle: 'compressed' }))
-      .pipe($.purifycss([paths.app.scripts.main, paths.app.html.all])) // (Optional) disable if you don't want to cut unused CSS.
+      .pipe($.purifycss(purifyContent)) // (Optional) disable if you don't want to cut unused CSS.
       .pipe($.postcss(plugins)) // (Optional) disable if you don't want to use PostCSS plugins.
       .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
-      .pipe(gulp.dest(paths.dist.css))
   //  .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
+      .pipe(gulp.dest(paths.dist.css))
       .pipe($.size({ title: 'CSS Size:' }))
       .pipe($.debug({ title: 'CSS File:' }))
       .on('end', reload)
