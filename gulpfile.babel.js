@@ -304,7 +304,7 @@ export const css = () => {
       reporters: [{ formatter: 'string', console: true }]
     },
     plugins = [
-      require('autoprefixer')({ browsers: ['last 3 version'] }),
+      require('autoprefixer')(),
       require('css-mqpacker')({ sort: true }),
       require('cssnano')({ safe: true }),
       require('css-declaration-sorter')({ order: 'smacss' })
