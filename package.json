@@ -44,7 +44,7 @@
 		"node": ">=10.16.0 "
 	},
 	"scripts": {
-		"dev": "gulp",
+		"dev": "gulp build && gulp",
 		"watch": "gulp watch",
 		"build": "gulp build",
 		"start": "yarn && node init.js"
