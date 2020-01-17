@@ -42,7 +42,7 @@
     "start": "yarn && node init.js",
 		"dev": "gulp build && gulp",
 		"watch": "gulp watch",
-		"build": "gulp build",
+		"build": "gulp build && gulp docs",
     "install:clean": "rm -rf node_modules/ package-lock.json yarn.lock && yarn && yarn start"
 	},
 	"dependencies": {

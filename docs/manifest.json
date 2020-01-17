@@ -1,14 +1,14 @@
 {
-  "name": "Bughunter",
-  "short_name": "Bughunter",
-  "description": "Buglance - Bughunter 🐞.",
+  "name": "BB8",
+  "short_name": "BB8",
+  "description": "Starter kit for automating tasks in everyday front-end development.",
   "dir": "ltr",
   "lang": "en-US",
   "display": "standalone",
   "orientation": "any",
-  "start_url": "https://bughunter.com/",
-  "background_color": "#23212b",
-  "theme_color": "#23212b",
+  "start_url": ".",
+  "background_color": "#fff",
+  "theme_color": "#fff",
   "icons": [
     {
       "src": "./img/favicons/android-chrome-36x36.png",

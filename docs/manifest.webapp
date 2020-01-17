@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "name": "Bughunter",
-  "description": "Buglance - Bughunter 🐞.",
+  "name": "BB8",
+  "description": "Starter kit for automating tasks in everyday front-end development.",
   "icons": {
     "60": "./img/favicons/firefox_app_60x60.png",
     "128": "./img/favicons/firefox_app_128x128.png",

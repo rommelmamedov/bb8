@@ -112,15 +112,15 @@ export const utils = () => {
  **/
 export const favicons = () => {
   const settings = {
-      appName: 'BookSpaHotel',
-      appShortName: 'BookSpaHotel',
-      appDescription: 'Лечебно-оздоровительный отдых в лучших санаториях Европы. Онлайн-сервис по бронированию санаториев и отелей. Курорты для лечения заболеваний. Описание, цены и стоимость путевок. Отзывы туристов.',
+      appName: 'BB8',
+      appShortName: 'BB8',
+      appDescription: 'Starter pack for automating tasks in everyday front-end development. 🤖',
       dir: 'ltr',
       lang: 'en-US',
       background: '#fff',
       theme_color: '#fff',
       appleStatusBarStyle: 'black-translucent',
-      start_url: '/index.html?homescreen=1',
+      start_url: '.',
       icons: {
         android: true,
         firefox: true,
@@ -226,7 +226,7 @@ export const server = done => {
     notify: false,
     //  https: true,
     //  tunnel: true,
-    //  tunnel: 'BookSpaHotel' //  Demonstration page: http://BookSpaHotel.localtunnel.me
+    //  tunnel: 'BB8' //  Demonstration page: http://BB8.localtunnel.me
   });
   done();
 };
