@@ -12,45 +12,48 @@ import plugins from 'gulp-load-plugins';
 import validator from 'gulp-w3c-html-validator';
 
 //  Global Constants
-const
-  $ = plugins(),
+const $ = plugins(),
   reload = browserSync.reload,
   paths = {
     app: {
       root: './app/',
       html: {
-        main: './app/layouts/*.html',
-        all: './app/layouts/**/*.html'
+        main: './app/html/',
+        all: './app/html/pages/*.html',
       },
       styles: {
         root: './app/sass/',
         main: './app/sass/main.scss',
-        all: './app/sass/**/*.scss'
+        all: './app/sass/**/*.scss',
       },
       scripts: {
         main: './app/js/core.js',
         all: './app/js/**/*.js',
         //  You can specify the path to JavaScript libs that you're going to use in this `libs` array,
         //  so gulp will concat and minifying them into the one final file.
+        //  prettier-ignore
         libs: [
           './app/js/lib/jquery.min.js',
-          // './app/js/lib/bootstrap.min.js' // For example
-        ]
+          './app/js/lib/masonry.js',
+          './app/js/lib/easy-autocomplete.js',
+          './app/js/lib/scrolltop.js',
+        ],
+        jsonData: './app/js/*.json',
       },
       images: {
         root: './app/img/',
         main: './app/img/**/*',
-        svgIcons: './app/img/icons/*.svg'
+        svgIcons: './app/img/icons/*.svg',
       },
       fonts: './app/fonts/**/*',
       utils: {
         root: './app/utils/',
-        main: ['./app/utils/**/*', '!./app/utils/favicon.{svg,png,jpg,jpeg}']
+        main: ['./app/utils/**/*', '!./app/utils/favicon.{svg,png,jpg,jpeg}'],
       },
       favicons: {
         main: './app/utils/favicon.png',
-        generated: './app/img/favicons/'
-      }
+        generated: './app/img/favicons/',
+      },
     },
     dist: {
       root: './dist/',
@@ -60,9 +63,9 @@ const
       fonts: './dist/fonts/',
       utils: {
         main: './dist/utils/',
-        favicons: './dist/img/favicons/'
-      }
-    }
+        favicons: './dist/img/favicons/',
+      },
+    },
   };
 
 //  You can choose whether to use Dart Sass or Node Sass by setting the sass.compiler property.
@@ -74,10 +77,14 @@ export const clear = () => {
   return del(paths.dist.root);
 };
 
+//  Create docs directory for GitHub pages.
+export const docs = () => {
+  return gulp.src('./dist/**/*').pipe(gulp.dest('./docs/'));
+};
+
 //  Moving website's utils, credentials, fonts, and etc. to the production directory.
 export const utils = () => {
-  const
-    credentials = gulp
+  const credentials = gulp
       .src(paths.app.utils.main, { since: gulp.lastRun(utils) })
       .pipe($.plumber())
       .pipe($.newer(paths.dist.root))
@@ -104,11 +111,10 @@ export const utils = () => {
  * For more about options: {@link https://github.com/itgalaxy/favicons}
  **/
 export const favicons = () => {
-  const
-    settings = {
-      appName: 'BB8',
-      appShortName: 'BB8',
-      appDescription: 'Starter kit for automating tasks in everyday front-end development.',
+  const settings = {
+      appName: 'BookSpaHotel',
+      appShortName: 'BookSpaHotel',
+      appDescription: 'Лечебно-оздоровительный отдых в лучших санаториях Европы. Онлайн-сервис по бронированию санаториев и отелей. Курорты для лечения заболеваний. Описание, цены и стоимость путевок. Отзывы туристов.',
       dir: 'ltr',
       lang: 'en-US',
       background: '#fff',
@@ -123,17 +129,17 @@ export const favicons = () => {
         appleIcon: true,
         coast: false,
         yandex: false,
-        appleStartup: false
-      }
+        appleStartup: false,
+      },
     },
     replacePaths = [
       ['/android', './img/favicons/android'],
       ['/firefox', './img/favicons/firefox'],
-      ['/mstile', './img/favicons/mstile']
+      ['/mstile', './img/favicons/mstile'],
     ],
     utils = $.filter(['*', '!*.png'], {
       restore: true,
-      passthrough: false
+      passthrough: false,
     }),
     stream = gulp
       .src(paths.app.favicons.main)
@@ -160,19 +166,18 @@ export const favicons = () => {
  * For more about options: {@link https://github.com/jkphl/svg-sprite}
  **/
 export const sprites = () => {
-  const
-    config = {
+  const config = {
       dest: './',
       shape: {
         // Set maximum dimensions
         dimension: {
           maxWidth: 48,
-          maxHeight: 48
+          maxHeight: 48,
         },
         // Add padding
         spacing: {
-          padding: 10
-        }
+          padding: 10,
+        },
       },
       mode: {
         css: {
@@ -182,14 +187,14 @@ export const sprites = () => {
           bust: false,
           dimensions: true,
           render: {
-            scss: true
-          }
-        }
-      }
+            scss: true,
+          },
+        },
+      },
     },
     scss = $.filter(['*.scss'], {
       restore: true,
-      passthrough: false
+      passthrough: false,
     }),
     stream = gulp
       .src(paths.app.images.svgIcons)
@@ -214,14 +219,14 @@ export const sprites = () => {
 export const server = done => {
   browserSync.init({
     server: {
-      baseDir: paths.dist.root
+      baseDir: paths.dist.root,
     },
     port: 2020,
-    open: true,
-    notify: false
-//  https: true,
-//  tunnel: true,
-//  tunnel: 'BB8' //  Demonstration page: http://BB8.localtunnel.me
+    open: false,
+    notify: false,
+    //  https: true,
+    //  tunnel: true,
+    //  tunnel: 'BookSpaHotel' //  Demonstration page: http://BookSpaHotel.localtunnel.me
   });
   done();
 };
@@ -231,34 +236,26 @@ export const server = done => {
  * For more about used image plugins here: {@link https://bit.ly/2XPqEin#img}
  **/
 export const img = () => {
-  const
-    svgOptions = {
+  const svgOptions = {
       removeViewBox: false,
       collapseGroups: true,
       removeComments: true,
       removeEmptyAttrs: true,
       removeEmptyText: true,
-      removeUnusedNS: true
+      removeUnusedNS: true,
     },
     webpOptions = {
       lossless: true,
       quality: 70,
-      alphaQuality: 90
+      alphaQuality: 90,
     };
   return (
     gulp
       .src(paths.app.images.main, { since: gulp.lastRun(img) })
       .pipe($.plumber())
       .pipe($.newer(paths.dist.img))
-      .pipe(
-        $.imagemin([
-          $.imagemin.gifsicle({ interlaced: true }),
-          $.imagemin.jpegtran({ progressive: true }),
-          $.imagemin.optipng({ optimizationLevel: 5 }),
-          $.imagemin.svgo({ plugins: [svgOptions] })
-        ])
-      )
-  //  .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
+      .pipe($.imagemin([$.imagemin.gifsicle({ interlaced: true }), $.imagemin.optipng({ optimizationLevel: 5 }), $.imagemin.svgo({ plugins: [svgOptions] })]))
+      //  .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
       .pipe(gulp.dest(paths.dist.img))
       .pipe($.size({ title: 'Image Size:' }))
       .pipe($.debug({ title: 'Image File:' }))
@@ -273,14 +270,14 @@ export const img = () => {
 export const html = () => {
   return (
     gulp
-      .src(paths.app.html.main)
+      .src(paths.app.html.all)
       .pipe($.plumber())
-      .pipe($.rigger())
+      .pipe($.nunjucksRender({ path: [paths.app.html.main] }))
       .pipe($.htmlBeautify({ indent_size: 2, preserve_newlines: false }))
-  //  .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
-  //  .pipe($.htmllint()) // (Optional) enable if you need to lint your HTML files.
-  //  .pipe(validator())  // (Optional) enable if you need to check the markup validity by W3C.
-  //  .pipe(validator.reporter()) // (Optional) enable if you need to check the markup validity by W3C.
+      //  .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
+      //  .pipe($.htmllint()) // (Optional) enable if you need to lint your HTML files.
+      //  .pipe(validator())  // (Optional) enable if you need to check the markup validity by W3C.
+      //  .pipe(validator.reporter()) // (Optional) enable if you need to check the markup validity by W3C.
       .pipe(gulp.dest(paths.dist.root))
       .pipe($.size({ title: 'HTML Size:' }))
       .pipe($.debug({ title: 'HTML File:' }))
@@ -293,32 +290,28 @@ export const html = () => {
  * For more about used CSS here: {@link https://bit.ly/2XPqEin#css}
  **/
 export const css = () => {
-  const
-    //  Files to search through for used classes (HTML, JS and etc., basically anything that uses CSS selectors).
-    purifyContent = [
-      './dist/js/*.js',
-      './dist/*.html'
-    ],
+  const //  Files to search through for used classes (HTML, JS and etc., basically anything that uses CSS selectors).
+    purifyContent = ['./dist/js/*.js', './dist/*.html'],
     styleLintSetting = {
       debug: true,
-      reporters: [{ formatter: 'string', console: true }]
+      reporters: [{ formatter: 'string', console: true }],
     },
     plugins = [
       require('autoprefixer')(),
-      require('css-mqpacker')({ sort: true }),
-      require('cssnano')({ safe: true }),
-      require('css-declaration-sorter')({ order: 'smacss' })
+      // require('css-mqpacker')({ sort: true }),
+      // require('cssnano')({ safe: true }),
+      // require('css-declaration-sorter')({ order: 'smacss' }),
     ];
   return (
     gulp
       .src(paths.app.styles.main)
       .pipe($.plumber())
       .pipe($.sass({ outputStyle: 'compressed' }))
-      .pipe($.purifycss(purifyContent)) // (Optional) disable if you don't want to cut unused CSS.
+      // .pipe($.purifycss(purifyContent)) // (Optional) disable if you don't want to cut unused CSS.
       .pipe($.postcss(plugins)) // (Optional) disable if you don't want to use PostCSS plugins.
-      .pipe($.csso())
+      // .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
-  //  .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
+      //  .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
       .pipe(gulp.dest(paths.dist.css))
       .pipe($.size({ title: 'CSS Size:' }))
       .pipe($.debug({ title: 'CSS File:' }))
@@ -332,14 +325,13 @@ export const css = () => {
  * For more about used JS here: {@link https://bit.ly/2XPqEin#js}
  **/
 export const js = () => {
-  const
-    main = gulp
+  const main = gulp
       .src(paths.app.scripts.main)
       .pipe($.plumber())
       .pipe($.babel({ presets: ['@babel/preset-env'] }))
       .pipe(gulp.dest(paths.dist.js))
-  //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
-  //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
+      //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
+      //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
       .pipe($.size({ title: 'JS Size:' }))
       .pipe($.debug({ title: 'JS Files:' }))
       .on('end', reload),
@@ -360,13 +352,13 @@ export const watchFiles = () => {
   gulp.watch(paths.app.images.main, img);
   gulp.watch(paths.app.styles.all, css);
   gulp.watch(paths.app.scripts.all, js);
-  gulp.watch(paths.app.html.all, html);
+  gulp.watch('./app/html/**/*', html);
 };
 
 //  Export Complex Tasks
 export const credentials = gulp.series(favicons, utils, img);
 export const main = gulp.parallel(img, utils, html, js, css);
 export const watch = gulp.parallel(watchFiles, server);
-export const build = gulp.series(clear, main);
+export const build = gulp.series(clear, main, docs);
 export const dev = gulp.series(main, watch);
 exports.default = dev;

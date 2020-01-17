@@ -1,5 +1,4 @@
-@import 'helpers/helpers', 'lib/libs', 'components/components',
-  'partials/partials';
+@import 'helpers/helpers', 'lib/libs', 'partials/partials';
 
 /*!   === Custom Font's  ===   */
 @include font-face('StarJedi', '../fonts/StarJedi/StarJedi');
@@ -28,5 +27,5 @@ body {
   letter-spacing: 2px;
 }
 
-//  Pages
-@import 'index.scss';
+@import 'pages/pages';
+@import 'components/components';

@@ -1,12 +1,12 @@
 /*!   === Grid System ===   */
 
 //  Container Width
-$container-xl: 1140px;
+$container-xl: 1200px;
 $container-lg: 960px;
 $container-md: 720px;
 $container-sm: 540px;
 //  Breakpoints Width
-$breakpoint-xl: 1200px;
+$breakpoint-xl: 1160px;
 $breakpoint-lg: 992px;
 $breakpoint-md: 768px;
 $breakpoint-sm: 576px;
@@ -17,18 +17,18 @@ $breakpoint-sm: 576px;
   margin-right: auto;
   max-width: $container-xl;
   // border: 1px solid red;
-  @media (max-width: $breakpoint-xl) {
-    max-width: $container-lg;
-  }
-  @media (max-width: $breakpoint-lg) {
-    max-width: $container-md;
-  }
-  @media (max-width: $breakpoint-md) {
-    max-width: $container-sm;
-  }
-  @media (max-width: $breakpoint-sm) {
-    max-width: unset;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
+  // @media (max-width: $breakpoint-xl) {
+  // 	max-width: $container-lg;
+  // }
+  // @media (max-width: $breakpoint-lg) {
+  // 	max-width: $container-md;
+  // }
+  // @media (max-width: $breakpoint-md) {
+  // 	max-width: $container-sm;
+  // }
+  // @media (max-width: $breakpoint-sm) {
+  // 	max-width: unset;
+  // 	padding-left: 30px;
+  // 	padding-right: 30px;
+  // }
 }

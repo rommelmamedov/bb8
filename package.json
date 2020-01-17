@@ -1,20 +1,15 @@
 {
 	"name": "BB8",
-	"version": "1.6.0",
+	"version": "2.0.0",
 	"description": "Starter kit for automating tasks in everyday front-end development.",
-	"author": "Ramil Mamedov <rommelmamedov@gmail.com>",
-	"license": "MIT",
+  "author": "Ramil Mamedov <rommelmamedov@gmail.com> (https://github.com/rommelmamedov)",
+  "license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ramilmamedo/bb8/"
 	},
 	"bugs": {
 		"url": "https://github.com/ramilmamedo/bb8/issues"
-	},
-	"contributors": {
-		"name": "Ramil Mamedov",
-		"email": "rommelmamedov@gmail.com",
-		"url": "https://github.com/ramilmamedo/"
 	},
 	"homepage": "https://github.com/RamilMamedo/bb8/blob/master/README.md",
 	"keywords": [
@@ -44,53 +39,57 @@
 		"node": ">=10.16.0 "
 	},
 	"scripts": {
+    "start": "yarn && node init.js",
 		"dev": "gulp build && gulp",
 		"watch": "gulp watch",
 		"build": "gulp build",
-		"start": "yarn && node init.js"
+    "install:clean": "rm -rf node_modules/ package-lock.json yarn.lock && yarn && yarn start"
 	},
 	"dependencies": {
-		"@babel/core": "^7.5.5",
-		"@babel/preset-env": "^7.5.5",
-		"@babel/register": "^7.5.5",
+		"@babel/core": "^7.8.3",
+		"@babel/preset-env": "^7.8.3",
+		"@babel/register": "^7.8.3",
 		"browser-sync": "^2.26.7",
-		"del": "5.0.0",
-		"gulp": "4.0.2",
+		"del": "5.1.0",
+    "gulp": "4.0.2",
+    "gulp-nunjucks-render": "^2.2.3",
 		"merge-stream": "2.0.0",
-		"yarn": "1.17.3"
+		"yarn": "1.21.1"
 	},
 	"devDependencies": {
-		"autoprefixer": "^9.6.1",
-		"css-declaration-sorter": "^4.0.1",
+		"autoprefixer": "^9.7.4",
+		"css-declaration-sorter": "^5.0.0",
 		"css-mqpacker": "^7.0.0",
 		"cssnano": "^4.1.10",
 		"gulp-babel": "^8.0.0",
 		"gulp-batch-replace": "0.0.0",
 		"gulp-concat": "^2.6.1",
-		"gulp-csso": "^3.0.1",
+		"gulp-csso": "^4.0.1",
 		"gulp-debug": "^4.0.0",
 		"gulp-eslint": "^6.0.0",
-		"gulp-favicons": "^2.3.1",
+		"gulp-favicons": "^2.4.0",
 		"gulp-filter": "6.0.0",
 		"gulp-html-beautify": "^1.0.1",
 		"gulp-htmllint": "^0.0.16",
 		"gulp-htmlmin": "^5.0.1",
-		"gulp-imagemin": "^6.0.0",
-		"gulp-load-plugins": "^2.0.0",
+		"gulp-imagemin": "^7.0.0",
+		"gulp-load-plugins": "^2.0.2",
 		"gulp-newer": "^1.4.0",
 		"gulp-plumber": "^1.2.1",
 		"gulp-postcss": "^8.0.0",
 		"gulp-purifycss": "^0.2.0",
-		"gulp-rename": "^1.4.0",
+		"gulp-rename": "^2.0.0",
 		"gulp-rigger": "^0.5.8",
 		"gulp-sass": "^4.0.2",
 		"gulp-size": "^3.0.0",
-		"gulp-stylelint": "9.0.0",
+		"gulp-stylelint": "11.0.0",
 		"gulp-svg-sprite": "^1.5.0",
 		"gulp-uglify": "^3.0.2",
-		"gulp-w3c-html-validator": "^1.4.3",
+		"gulp-w3c-html-validator": "^1.4.4",
 		"gulp-webp": "^4.0.1",
-		"stylelint": "10.1.0",
-		"stylelint-config-recommended": "^2.2.0"
+		"stylelint": "13.0.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "1.19.1"
 	}
 }

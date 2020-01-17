@@ -24,8 +24,13 @@
   box-sizing: border-box; // 1
 }
 
-html {
+html,
+body {
   font-family: sans-serif; // 2
+  font-family: $default-font;
+}
+
+html {
   line-height: 1.15; // 3
   -webkit-text-size-adjust: 100%; // 4
   -ms-text-size-adjust: 100%; // 4
@@ -34,7 +39,16 @@ html {
 }
 
 // Shim for "new" HTML5 structural elements to display correctly (IE10, older browsers)
-article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
   display: block;
 }
 
@@ -49,7 +63,6 @@ body {
   line-height: 1.5;
   font-weight: $fw-400;
   font-size: $ftz-normal;
-  font-family: $default-font;
   text-align: left; // 3
   background-color: $white; // 2
 }
@@ -159,6 +172,7 @@ sup {
 
 // Links
 a {
+  color: inherit;
   text-decoration: none; // Custom
   background-color: transparent; // Remove the gray background on active links in IE 10.
   &:hover {
@@ -299,8 +313,7 @@ select {
 // Opinionated: add "hand" cursor to non-disabled button elements.
 button,
 [type="button"],
-// 1
-[type="reset"],
+// 1 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button; // 2
   &:not(:disabled) {
@@ -414,7 +427,12 @@ template {
 // Remove the gap between audio, canvas, iframes,
 // images, videos and the bottom of their containers:
 // https://github.com/h5bp/html5-boilerplate/issues/440
-audio, canvas, iframe, img, svg, video {
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
   vertical-align: middle;
 }
 
@@ -432,7 +450,7 @@ audio, canvas, iframe, img, svg, video {
   *:before,
   *:after {
     background: transparent !important;
-    color: #000 !important; /* Black prints faster */
+    color: $black !important; /* Black prints faster */
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     text-shadow: none !important;

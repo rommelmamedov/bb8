@@ -44,7 +44,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 **6.** To get start immediately.
 
 ```bash
-❯ $ yarn run start
+❯ $ yarn start
 ```
 
 > If you don’t want to install or configure tools, plugins or any other dependencies. So that you can focus on the code, just create a project, and you’re good to go.
@@ -64,7 +64,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 **2.** To start development.
 
 ```bash
-❯ $ yarn run dev
+❯ $ yarn dev
 ```
 
 > If you did everything correctly, it should open a browser with a local server on port **[2020](http://localhost:2020)** and a working **browser-sync**.
@@ -72,7 +72,7 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 **3.** To finalize the project for production.
 
 ```bash
-❯ $ yarn run build
+❯ $ yarn build
 ```
 
 ## Folder Structures 📂
