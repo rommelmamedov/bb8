@@ -119,7 +119,7 @@ No configuration or complicated folder structure, just the ready files you need 
 - [gulp-batch-replace](https://www.npmjs.com/package/gulp-batch-replace) — for replacing a batch of strings in the stream;
 
 #### HTML
-- [gulp-rigger](https://www.npmjs.com/package/gulp-rigger) — is a build time include engine for in general any type of text file that you wish to might want to "include" other files into;
+- [gulp-nunjucks-render](https://www.npmjs.com/package/gulp-nunjucks-render) — is a build time HTML templating engine based on Python Django syntax;
 - [gulp-htmllint](https://www.npmjs.com/package/gulp-htmllint) — linter for identifying and reporting on HTML code;
   - for more: [htmllint](https://github.com/htmllint/htmllint/);
 - [gulp-htmlmin](https://www.npmjs.com/package/gulp-htmlmin) — for minifying HTML files;
@@ -178,7 +178,7 @@ This doesn't mean that BB8 cannot be used in older browsers, just that it's focu
 
 ## Contributing & Troubleshooting :bug:
 
-Contributions, questions and comments are all welcome and encouraged.
+Contributions, questions, and comments are all welcome and encouraged.
 
 If you find yourself running into issues during installation or running the tools, please open an issue. BB8 would be happy to discuss how they can be solved.
 
