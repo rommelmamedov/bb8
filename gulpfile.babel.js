@@ -55,15 +55,15 @@ const $ = plugins(),
         generated: './app/img/favicons/',
       },
     },
-    dist: {
-      root: './dist/',
-      js: './dist/js/',
-      img: './dist/img/',
-      css: './dist/css/',
-      fonts: './dist/fonts/',
+    build: {
+      root: './build/',
+      js: './build/js/',
+      img: './build/img/',
+      css: './build/css/',
+      fonts: './build/fonts/',
       utils: {
-        main: './dist/utils/',
-        favicons: './dist/img/favicons/',
+        main: './build/utils/',
+        favicons: './build/img/favicons/',
       },
     },
   };
@@ -74,12 +74,12 @@ $.sass().compiler = require('node-sass');
 
 //  Removing the production directory.
 export const clear = () => {
-  return del(paths.dist.root);
+  return del(paths.build.root);
 };
 
 //  Create docs directory for GitHub pages.
 export const docs = () => {
-  return gulp.src('./dist/**/*').pipe(gulp.dest('./docs/'));
+  return gulp.src('./build/**/*').pipe(gulp.dest('./docs/'));
 };
 
 //  Moving website's utils, credentials, fonts, and etc. to the production directory.
@@ -87,16 +87,16 @@ export const utils = () => {
   const credentials = gulp
       .src(paths.app.utils.main, { since: gulp.lastRun(utils) })
       .pipe($.plumber())
-      .pipe($.newer(paths.dist.root))
-      .pipe(gulp.dest(paths.dist.root))
+      .pipe($.newer(paths.build.root))
+      .pipe(gulp.dest(paths.build.root))
       .pipe($.size({ title: 'Utils Size:' }))
       .pipe($.debug({ title: 'Utils Files:' }))
       .on('end', reload),
     fonts = gulp
       .src(paths.app.fonts, { since: gulp.lastRun(utils) })
       .pipe($.plumber())
-      .pipe($.newer(paths.dist.fonts))
-      .pipe(gulp.dest(paths.dist.fonts))
+      .pipe($.newer(paths.build.fonts))
+      .pipe(gulp.dest(paths.build.fonts))
       .pipe($.size({ title: 'Font Size:' }))
       .pipe($.debug({ title: 'Font Files:' }))
       .on('end', reload);
@@ -219,7 +219,7 @@ export const sprites = () => {
 export const server = done => {
   browserSync.init({
     server: {
-      baseDir: paths.dist.root,
+      baseDir: paths.build.root,
     },
     port: 2020,
     open: false,
@@ -253,10 +253,10 @@ export const img = () => {
     gulp
       .src(paths.app.images.main, { since: gulp.lastRun(img) })
       .pipe($.plumber())
-      .pipe($.newer(paths.dist.img))
+      .pipe($.newer(paths.build.img))
       .pipe($.imagemin([$.imagemin.gifsicle({ interlaced: true }), $.imagemin.optipng({ optimizationLevel: 5 }), $.imagemin.svgo({ plugins: [svgOptions] })]))
       //  .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
-      .pipe(gulp.dest(paths.dist.img))
+      .pipe(gulp.dest(paths.build.img))
       .pipe($.size({ title: 'Image Size:' }))
       .pipe($.debug({ title: 'Image File:' }))
       .on('end', reload)
@@ -278,7 +278,7 @@ export const html = () => {
       //  .pipe($.htmllint()) // (Optional) enable if you need to lint your HTML files.
       //  .pipe(validator())  // (Optional) enable if you need to check the markup validity by W3C.
       //  .pipe(validator.reporter()) // (Optional) enable if you need to check the markup validity by W3C.
-      .pipe(gulp.dest(paths.dist.root))
+      .pipe(gulp.dest(paths.build.root))
       .pipe($.size({ title: 'HTML Size:' }))
       .pipe($.debug({ title: 'HTML File:' }))
       .on('end', reload)
@@ -291,7 +291,7 @@ export const html = () => {
  **/
 export const css = () => {
   const //  Files to search through for used classes (HTML, JS and etc., basically anything that uses CSS selectors).
-    purifyContent = ['./dist/js/*.js', './dist/*.html'],
+    purifyContent = ['./build/js/*.js', './build/*.html'],
     styleLintSetting = {
       debug: true,
       reporters: [{ formatter: 'string', console: true }],
@@ -312,7 +312,7 @@ export const css = () => {
       // .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
       //  .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
-      .pipe(gulp.dest(paths.dist.css))
+      .pipe(gulp.dest(paths.build.css))
       .pipe($.size({ title: 'CSS Size:' }))
       .pipe($.debug({ title: 'CSS File:' }))
       .on('end', reload)
@@ -329,7 +329,7 @@ export const js = () => {
       .src(paths.app.scripts.main)
       .pipe($.plumber())
       .pipe($.babel({ presets: ['@babel/preset-env'] }))
-      .pipe(gulp.dest(paths.dist.js))
+      .pipe(gulp.dest(paths.build.js))
       //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
       //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
       .pipe($.size({ title: 'JS Size:' }))
@@ -340,7 +340,7 @@ export const js = () => {
       .pipe($.plumber())
       .pipe($.uglify()) // (Optional) disable if you don't want to minify-uglify JS vendors.
       .pipe($.concat('vendors.min.js'))
-      .pipe(gulp.dest(paths.dist.js))
+      .pipe(gulp.dest(paths.build.js))
       .pipe($.size({ title: 'JS Libs Size:' }))
       .pipe($.debug({ title: 'JS Libs Files:' }))
       .on('end', reload);

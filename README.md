@@ -77,11 +77,11 @@ Starter kit for automating tasks in everyday front-end development. 👨🏻‍�
 
 ## Folder Structures 📂
 
-The last command will create a directory called **`dist`** inside the current folder.<br>
+The last command will create a directory called **`build`** inside the current folder.<br>
 No configuration or complicated folder structure, just the ready files you need for production:
 
 ```
-./dist/
+./build/
 ├── css
 │   └── main.min.css
 ├── fonts
