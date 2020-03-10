@@ -2,6 +2,10 @@
 
 // Font Families
 $default-font: 'StarJedi';
+// $font-regular: 'Gilroy-Regular';
+// $font-medium: 'Gilroy-Medium';
+// $font-semibold: 'Gilroy-Semibold';
+// $font-bold: 'Gilroy-Bold';
 
 // Font Sizes
 $ftz-mini:        10px;
@@ -24,14 +28,14 @@ $lh-base:    1.5;
 $lh-heading: 1.2;
 
 // Colors
-$white: #fff;
-$black: #000;
+$white:  #fff;
+$black:  #000;
 $orange: #ffa500;
 
 // Utilities
-$border-r-5: 5px;
+$border-r-5:   5px;
 $border-r-10: 10px;
-$transition: all 0.3s ease-in-out;
+$transition:  all 0.3s ease-in-out;
 $transparent: rgba(0, 0, 0, 0.01);
 
 // Z-Index
@@ -39,3 +43,4 @@ $z-1: 1;
 $z-2: 2;
 $z-3: 3;
 $z-4: 4;
+$z-5: 5;

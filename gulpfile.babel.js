@@ -34,9 +34,6 @@ const $ = plugins(),
         //  prettier-ignore
         libs: [
           './app/js/lib/jquery.min.js',
-          './app/js/lib/masonry.js',
-          './app/js/lib/easy-autocomplete.js',
-          './app/js/lib/scrolltop.js',
         ],
         jsonData: './app/js/*.json',
       },
