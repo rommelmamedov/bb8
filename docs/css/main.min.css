@@ -414,16 +414,10 @@ video {
   font-style: normal;
   src: local('StarJedi'), url('../fonts/StarJedi/StarJedi.woff') format('woff'), url('../fonts/StarJedi/StarJedi.woff2') format('woff2');
 }
-::-webkit-input-placeholder {
-  color: #000;
-}
 ::-moz-placeholder {
   color: #000;
 }
 :-ms-input-placeholder {
-  color: #000;
-}
-::-ms-input-placeholder {
   color: #000;
 }
 ::placeholder {
