@@ -72,9 +72,6 @@ $.sass().compiler = require('sass');
 //  Removing the production directory.
 export const clearBuild = () => del(paths.build.root);
 
-//  Create docs directory for GitHub pages.
-export const createDocsFolder = () => src('./build/**/*').pipe(dest('./docs/'));
-
 //  Moving website's utils, credentials, fonts, and etc. to the production directory.
 export const utils = () => {
   const credentials = src(paths.app.utils.main, { since: lastRun(utils) })

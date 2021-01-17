@@ -6,7 +6,6 @@ _config.yml
 ehthumbs.db
 Thumbs.db
 node_modules
-build
 yarn.lock
 package-lock.json
 tasks.md

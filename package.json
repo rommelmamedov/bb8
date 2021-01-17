@@ -15,8 +15,8 @@
   "scripts": {
     "dev": "gulp",
     "start": "gulp",
+    "build": "gulp build",
     "pretty-quick": "pretty-quick",
-    "build": "gulp build && gulp createDocsFolder",
     "clean": "rm -rf node_modules/ package-lock.json yarn.lock && yarn && yarn start"
   },
   "dependencies": {
