@@ -5,10 +5,10 @@
 
 //  Required Modules
 import del from 'del';
-import gulp from 'gulp';
 import merge from 'merge-stream';
 import browserSync from 'browser-sync';
 import plugins from 'gulp-load-plugins';
+import { src, dest, watch, series, parallel, lastRun } from 'gulp';
 // import validator from 'gulp-w3c-html-validator';
 
 //  Global Constants
@@ -70,26 +70,21 @@ const $ = plugins(),
 $.sass().compiler = require('sass');
 
 //  Removing the production directory.
-export const clear = () => del(paths.build.root);
+export const clearBuild = () => del(paths.build.root);
 
 //  Create docs directory for GitHub pages.
-export const docs = () => gulp.src('./build/**/*').pipe(gulp.dest('./docs/'));
+export const createDocsFolder = () => src('./build/**/*').pipe(dest('./docs/'));
 
 //  Moving website's utils, credentials, fonts, and etc. to the production directory.
 export const utils = () => {
-  const credentials = gulp
-      .src(paths.app.utils.main, { since: gulp.lastRun(utils) })
+  const credentials = src(paths.app.utils.main, { since: lastRun(utils) })
       .pipe($.plumber())
-      .pipe($.newer(paths.build.root))
-      .pipe(gulp.dest(paths.build.root))
+      .pipe(dest(paths.build.root))
       .pipe($.size({ title: 'Utils Size:' }))
-      .pipe($.debug({ title: 'Utils Files:' }))
-      .on('end', reload),
-    fonts = gulp
-      .src(paths.app.fonts, { since: gulp.lastRun(utils) })
+      .pipe($.debug({ title: 'Utils Files:' })),
+    fonts = src(paths.app.fonts, { since: lastRun(utils) })
       .pipe($.plumber())
-      .pipe($.newer(paths.build.fonts))
-      .pipe(gulp.dest(paths.build.fonts))
+      .pipe(dest(paths.build.fonts))
       .pipe($.size({ title: 'Font Size:' }))
       .pipe($.debug({ title: 'Font Files:' }))
       .on('end', reload);
@@ -134,8 +129,7 @@ export const favicons = () => {
       restore: true,
       passthrough: false,
     }),
-    stream = gulp
-      .src(paths.app.favicons.main)
+    stream = src(paths.app.favicons.main)
       .pipe($.plumber())
       .pipe($.newer(paths.app.favicons.generated))
       .pipe($.favicons(settings))
@@ -144,10 +138,10 @@ export const favicons = () => {
       // Filter a subset of the files
       .pipe(utils)
       .pipe($.batchReplace(replacePaths))
-      .pipe(gulp.dest(paths.app.utils.root));
+      .pipe(dest(paths.app.utils.root));
 
   // Use filtered files as a gulp file source
-  utils.restore.pipe(gulp.dest(paths.app.favicons.generated));
+  utils.restore.pipe(dest(paths.app.favicons.generated));
   return stream;
 };
 
@@ -189,18 +183,17 @@ export const sprites = () => {
       restore: true,
       passthrough: false,
     }),
-    stream = gulp
-      .src(paths.app.images.svgIcons)
+    stream = src(paths.app.images.svgIcons)
       .pipe($.plumber())
       .pipe($.svgSprite(config))
       .pipe($.size({ title: 'SVG Sprite Size:' }))
       .pipe($.debug({ title: 'SVG Sprite File:' }))
       // Filter a subset of the files
       .pipe(scss)
-      .pipe(gulp.dest(paths.app.styles.root));
+      .pipe(dest(paths.app.styles.root));
 
   // Use filtered files as a gulp file source
-  scss.restore.pipe(gulp.dest(paths.app.images.root));
+  scss.restore.pipe(dest(paths.app.images.root));
 
   return stream;
 };
@@ -241,16 +234,14 @@ export const img = () => {
       alphaQuality: 90,
     };
   return (
-    gulp
-      .src(paths.app.images.main, { since: gulp.lastRun(img) })
+    src(paths.app.images.main, { since: lastRun(img) })
       .pipe($.plumber())
       .pipe($.newer(paths.build.img))
       .pipe($.imagemin([$.imagemin.gifsicle({ interlaced: true }), $.imagemin.optipng({ optimizationLevel: 5 }), $.imagemin.svgo({ plugins: [svgOptions] })]))
       //  .pipe($.webp(webpOptions))  // (Optional) enable if you want to convert images to WebP format.
-      .pipe(gulp.dest(paths.build.img))
+      .pipe(dest(paths.build.img))
       .pipe($.size({ title: 'Image Size:' }))
       .pipe($.debug({ title: 'Image File:' }))
-      .on('end', reload)
   );
 };
 
@@ -260,16 +251,15 @@ export const img = () => {
  **/
 export const html = () => {
   return (
-    gulp
-      .src(paths.app.html.all)
+    src(paths.app.html.all)
       .pipe($.plumber())
       .pipe($.nunjucksRender({ path: [paths.app.html.main] }))
-      .pipe($.htmlBeautify({ indent_size: 2, preserve_newlines: false }))
+      // .pipe($.htmlBeautify({ indent_size: 2, preserve_newlines: false }))
       //  .pipe($.htmlmin({ collapseWhitespace: true }))  // (Optional) enable if you want to minify html files for production.
       //  .pipe($.htmllint()) // (Optional) enable if you need to lint your HTML files.
       //  .pipe(validator())  // (Optional) enable if you need to check the markup validity by W3C.
       //  .pipe(validator.reporter()) // (Optional) enable if you need to check the markup validity by W3C.
-      .pipe(gulp.dest(paths.build.root))
+      .pipe(dest(paths.build.root))
       .pipe($.size({ title: 'HTML Size:' }))
       .pipe($.debug({ title: 'HTML File:' }))
       .on('end', reload)
@@ -292,8 +282,7 @@ export const css = () => {
       // require('css-mqpacker')({ sort: true }),
     ];
   return (
-    gulp
-      .src(paths.app.styles.main)
+    src(paths.app.styles.main)
       .pipe($.plumber())
       .pipe($.sass({ outputStyle: 'compressed' }))
       // .pipe($.purifycss(purifyContent)) // (Optional) disable if you don't want to cut unused CSS.
@@ -301,7 +290,7 @@ export const css = () => {
       // .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
       //  .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
-      .pipe(gulp.dest(paths.build.css))
+      .pipe(dest(paths.build.css))
       .pipe($.size({ title: 'CSS Size:' }))
       .pipe($.debug({ title: 'CSS File:' }))
       .on('end', reload)
@@ -314,22 +303,19 @@ export const css = () => {
  * For more about used JS here: {@link https://bit.ly/2XPqEin#js}
  **/
 export const js = () => {
-  const main = gulp
-      .src(paths.app.scripts.main)
+  const main = src(paths.app.scripts.main)
       .pipe($.plumber())
       .pipe($.babel({ presets: ['@babel/preset-env'] }))
-      .pipe(gulp.dest(paths.build.js))
+      .pipe(dest(paths.build.js))
       //  .pipe($.eslint({ configFile: '.eslintrc.json' }))  // (Optional) enable if you need to lint core JS file.
       //  .pipe($.eslint.format())  // (Optional) enable if you need to lint core JS file.
       .pipe($.size({ title: 'JS Size:' }))
-      .pipe($.debug({ title: 'JS Files:' }))
-      .on('end', reload),
-    libs = gulp
-      .src(paths.app.scripts.libs)
+      .pipe($.debug({ title: 'JS Files:' })),
+    libs = src(paths.app.scripts.libs)
       .pipe($.plumber())
-      .pipe($.uglify()) // (Optional) disable if you don't want to minify-uglify JS vendors.
+      // .pipe($.uglify()) // (Optional) disable if you don't want to minify-uglify JS vendors.
       .pipe($.concat('vendors.min.js'))
-      .pipe(gulp.dest(paths.build.js))
+      .pipe(dest(paths.build.js))
       .pipe($.size({ title: 'JS Libs Size:' }))
       .pipe($.debug({ title: 'JS Libs Files:' }))
       .on('end', reload);
@@ -338,16 +324,16 @@ export const js = () => {
 
 //  Watching HTML, CSS, JS & media files for changes.
 export const watchFiles = () => {
-  gulp.watch(paths.app.images.main, img);
-  gulp.watch(paths.app.styles.all, css);
-  gulp.watch(paths.app.scripts.all, js);
-  gulp.watch('./app/html/**/*', html);
+  watch(paths.app.images.main, img);
+  watch(paths.app.styles.all, css);
+  watch(paths.app.scripts.all, js);
+  watch('./app/html/**/*', html);
 };
 
 //  Export Complex Tasks
-export const credentials = gulp.series(favicons, utils, img);
-export const main = gulp.parallel(img, utils, html, js, css);
-export const watch = gulp.parallel(watchFiles, server);
-export const build = gulp.series(clear, main, docs);
-export const dev = gulp.series(main, watch);
+export const credentials = series(favicons, utils, img);
+export const main = parallel(img, utils, html, js, css);
+export const watcher = parallel(watchFiles, server);
+export const build = series(clearBuild, main);
+export const dev = series(main, watcher);
 exports.default = dev;
