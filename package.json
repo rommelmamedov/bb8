@@ -1,6 +1,6 @@
 {
   "name": "BB8",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "Starter kit for automating tasks in everyday front-end development.",
   "author": "Ramil Mamedov <rommelmamedov@gmail.com> (https://github.com/rommelmamedov)",
   "license": "MIT",
@@ -12,28 +12,6 @@
     "url": "https://github.com/ramilmamedo/bb8/issues"
   },
   "homepage": "https://github.com/RamilMamedo/bb8/blob/master/README.md",
-  "keywords": [
-    "bb8",
-    "front-end",
-    "boilerplate",
-    "starter-kit",
-    "gulp.js",
-    "node.js",
-    "browsersync",
-    "imagemin",
-    "favicons",
-    "css",
-    "html",
-    "javascript",
-    "stylelint",
-    "eslint",
-    "sass",
-    "csso",
-    "postcss",
-    "cssnano",
-    "nunjunks",
-    "purifycss"
-  ],
   "scripts": {
     "dev": "gulp",
     "start": "gulp build && gulp",
@@ -41,19 +19,11 @@
     "build": "gulp build && gulp docs",
     "clean": "rm -rf node_modules/ package-lock.json yarn.lock && yarn && yarn start"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended"
-  },
   "dependencies": {
-    "@babel/core": "7.11.4",
-    "@babel/preset-env": "7.11.0",
-    "@babel/register": "7.10.5",
-    "browser-sync": "2.26.12",
+    "@babel/core": "7.12.10",
+    "@babel/preset-env": "7.12.11",
+    "@babel/register": "7.12.10",
+    "browser-sync": "2.26.13",
     "del": "5.1.0",
     "gulp": "4.0.2",
     "merge-stream": "2.0.0"
@@ -75,7 +45,7 @@
     "gulp-htmllint": "0.0.19",
     "gulp-htmlmin": "5.0.1",
     "gulp-imagemin": "7.1.0",
-    "gulp-load-plugins": "2.0.4",
+    "gulp-load-plugins": "2.0.6",
     "gulp-newer": "1.4.0",
     "gulp-nunjucks-render": "2.2.3",
     "gulp-plumber": "1.2.1",
@@ -89,11 +59,41 @@
     "gulp-uglify": "3.0.2",
     "gulp-w3c-html-validator": "2.0.1",
     "gulp-webp": "4.0.1",
-    "stylelint": "13.6.1",
+    "stylelint": "13.8.0",
     "stylelint-config-recommended": "3.0.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "husky": "4.2.5",
-    "prettier": "2.1.1",
-    "pretty-quick": "3.0.0"
-  }
+    "eslint-plugin-prettier": "3.3.1",
+    "husky": "4.3.8",
+    "prettier": "2.2.1",
+    "pretty-quick": "3.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended"
+  },
+  "keywords": [
+    "bb8",
+    "front-end",
+    "boilerplate",
+    "starter-kit",
+    "gulp.js",
+    "node.js",
+    "browsersync",
+    "imagemin",
+    "favicons",
+    "css",
+    "html",
+    "javascript",
+    "stylelint",
+    "eslint",
+    "sass",
+    "csso",
+    "postcss",
+    "cssnano",
+    "nunjunks",
+    "purifycss"
+  ]
 }

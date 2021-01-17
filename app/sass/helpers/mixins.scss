@@ -1,97 +1,95 @@
 //  Mixin for loading fonts.
 //  Credits: Bourbon.
 @mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $asset-pipeline: false) {
-	@font-face {
-		font-family: $font-family;
-		font-weight: $weight;
-		font-style: $style;
-		@if $asset-pipeline==true {
-			src: local("#{$font-family}"), url("#{$file-path}.woff") format("woff"),
-				url("#{$file-path}.woff2") format("woff2");
-		} @else {
-			src: local("#{$font-family}"), url("#{$file-path}.woff") format("woff"),
-				url("#{$file-path}.woff2") format("woff2");
-		}
-	}
+  @font-face {
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+    @if $asset-pipeline==true {
+      src: local('#{$font-family}'), url('#{$file-path}.woff') format('woff'), url('#{$file-path}.woff2') format('woff2');
+    } @else {
+      src: local('#{$font-family}'), url('#{$file-path}.woff') format('woff'), url('#{$file-path}.woff2') format('woff2');
+    }
+  }
 }
 
 //  Mixin to customize scrollbars. [Beware, this does not work in all browsers.]
 //  Credits: Hugo Giraudel.
 @mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
-	//  For Webkit
-	::-webkit-scrollbar {
-		width: $size;
-		height: $size;
-	}
+  //  For Webkit
+  ::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
 
-	::-webkit-scrollbar-thumb {
-		background-color: $foreground-color;
-	}
+  ::-webkit-scrollbar-thumb {
+    background-color: $foreground-color;
+  }
 
-	::-webkit-scrollbar-track {
-		background-color: $background-color;
-	}
+  ::-webkit-scrollbar-track {
+    background-color: $background-color;
+  }
 
-	//  For Internet Explorer
-	body {
-		scrollbar-face-color: $foreground-color;
-		scrollbar-track-color: $background-color;
-	}
+  //  For Internet Explorer
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
 }
 
 //  $direction: up, down, left, right...
 @mixin triangle($direction, $size: 6px, $color: #222) {
-	content: '';
-	display: block;
-	position: absolute;
-	height: 0;
-	width: 0;
-	@if ($direction=='up') {
-		border-bottom: $size solid $color;
-		border-left: 1/2*$size solid transparent;
-		border-right: 1/2*$size solid transparent;
-	} @else if ($direction=='down') {
-		border-top: $size solid $color;
-		border-left: 1/2*$size solid transparent;
-		border-right: 1/2*$size solid transparent;
-	} @else if ($direction=='left') {
-		border-top: 1/2*$size solid transparent;
-		border-bottom: 1/2*$size solid transparent;
-		border-right: $size solid $color;
-	} @else if ($direction=='right') {
-		border-top: 1/2*$size solid transparent;
-		border-bottom: 1/2*$size solid transparent;
-		border-left: $size solid $color;
-	}
+  content: '';
+  display: block;
+  position: absolute;
+  height: 0;
+  width: 0;
+  @if ($direction== 'up') {
+    border-bottom: $size solid $color;
+    border-left: 1/2 * $size solid transparent;
+    border-right: 1/2 * $size solid transparent;
+  } @else if ($direction== 'down') {
+    border-top: $size solid $color;
+    border-left: 1/2 * $size solid transparent;
+    border-right: 1/2 * $size solid transparent;
+  } @else if ($direction== 'left') {
+    border-top: 1/2 * $size solid transparent;
+    border-bottom: 1/2 * $size solid transparent;
+    border-right: $size solid $color;
+  } @else if ($direction== 'right') {
+    border-top: 1/2 * $size solid transparent;
+    border-bottom: 1/2 * $size solid transparent;
+    border-left: $size solid $color;
+  }
 }
 
 //  Mixin for the Pseudo elements ::before, ::after...
 @mixin pseudo($content: '', $display: block, $pos: absolute) {
-	content: $content;
-	display: $display;
-	position: $pos;
+  content: $content;
+  display: $display;
+  position: $pos;
 }
 
 //  Centering elements vertically, horizontally, or for both positions...
 @mixin centering($position) {
-	position: absolute;
-	@if $position=='vertical' {
-		top: 50%;
-		-webkit-transform: translateY(-50%);
-		-ms-transform: translateY(-50%);
-		transform: translateY(-50%);
-	} @else if $position=='horizontal' {
-		left: 50%;
-		-webkit-transform: translateX(-50%);
-		-ms-transform: translateX(-50%);
-		transform: translate(-50%);
-	} @else if $position=='both' {
-		top: 50%;
-		left: 50%;
-		-webkit-transform: translate(-50%, -50%);
-		-ms-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
-	}
+  position: absolute;
+  @if $position== 'vertical' {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  } @else if $position== 'horizontal' {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  } @else if $position== 'both' {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 }
 
 //  Remove text-shadow in selection highlight:
@@ -103,55 +101,54 @@
 //  Customize the background color to match your design.
 //  Mixin for generating ::selection rules for selected text.
 @mixin selection {
-	::selection {
-		@content;
-		text-shadow: none;
-	}
-	::-moz-selection {
-		@content;
-		text-shadow: none;
-	}
+  ::selection {
+    @content;
+    text-shadow: none;
+  }
+  ::-moz-selection {
+    @content;
+    text-shadow: none;
+  }
 }
 
 //  Mixin for styling placeholders in HTML5 form elements.
 @mixin placeholder {
-	::placeholder {
-		@content;
-	}
-	:-moz-placeholder {
-		@content;
-	}
-	::-moz-placeholder {
-		@content;
-	}
-	:-ms-input-placeholder {
-		@content;
-	}
-	::-webkit-input-placeholder {
-		@content;
-	}
+  ::placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+  :-ms-input-placeholder {
+    @content;
+  }
+  ::-webkit-input-placeholder {
+    @content;
+  }
 }
 
 //  Resetting text styles...
 @mixin reset-text {
-	font-family: $default-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-		sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	font-weight: 400;
-	font-style: normal;
-	//
-	text-align: left;
-	text-align: start;
-	text-decoration: none;
-	text-shadow: none;
-	text-transform: none;
-	//
-	line-height: 1.5;
-	letter-spacing: normal;
-	line-break: auto;
-	//
-	word-break: normal;
-	word-spacing: normal;
-	white-space: normal;
+  font-family: $default-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-weight: 400;
+  font-style: normal;
+  //
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  //
+  line-height: 1.5;
+  letter-spacing: normal;
+  line-break: auto;
+  //
+  word-break: normal;
+  word-spacing: normal;
+  white-space: normal;
 }
 
 // Hide only visually, but have it available for screen readers:
@@ -162,35 +159,35 @@
 //
 //  Only display content to screen readers...
 @mixin sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	clip-path: inset(50%);
-	border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
 }
 
 @mixin bg-base64($size, $position) {
-	background-size: $size;
-	background-position: $position;
-	background-repeat: no-repeat;
+  background-size: $size;
+  background-position: $position;
+  background-repeat: no-repeat;
 }
 
 //  Truncate text...
 @mixin truncate {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 //  Mixin for the element to self-clears its children.
 @mixin clearfix {
-	&::after {
-		display: block;
-		clear: both;
-		content: "";
-	}
+  &::after {
+    display: block;
+    clear: both;
+    content: '';
+  }
 }
