@@ -9,7 +9,7 @@ import gulp from 'gulp';
 import merge from 'merge-stream';
 import browserSync from 'browser-sync';
 import plugins from 'gulp-load-plugins';
-import validator from 'gulp-w3c-html-validator';
+// import validator from 'gulp-w3c-html-validator';
 
 //  Global Constants
 const $ = plugins(),
@@ -67,17 +67,13 @@ const $ = plugins(),
 
 //  You can choose whether to use Dart Sass or Node Sass by setting the sass.compiler property.
 //  You can read more about sass compilers here: https://www.npmjs.com/package/gulp-sass
-$.sass().compiler = require('node-sass');
+$.sass().compiler = require('sass');
 
 //  Removing the production directory.
-export const clear = () => {
-  return del(paths.build.root);
-};
+export const clear = () => del(paths.build.root);
 
 //  Create docs directory for GitHub pages.
-export const docs = () => {
-  return gulp.src('./build/**/*').pipe(gulp.dest('./docs/'));
-};
+export const docs = () => gulp.src('./build/**/*').pipe(gulp.dest('./docs/'));
 
 //  Moving website's utils, credentials, fonts, and etc. to the production directory.
 export const utils = () => {
@@ -213,11 +209,9 @@ export const sprites = () => {
  * Live reload and time-saving synchronized browser testing.
  * For more about options of BrowserSync: {@link https://browsersync.io/docs/api}
  **/
-export const server = done => {
+export const server = (done) => {
   browserSync.init({
-    server: {
-      baseDir: paths.build.root,
-    },
+    server: { baseDir: paths.build.root },
     port: 2020,
     open: false,
     notify: false,
@@ -296,8 +290,6 @@ export const css = () => {
     plugins = [
       require('autoprefixer')(),
       // require('css-mqpacker')({ sort: true }),
-      // require('cssnano')({ safe: true }),
-      // require('css-declaration-sorter')({ order: 'smacss' }),
     ];
   return (
     gulp
@@ -305,7 +297,7 @@ export const css = () => {
       .pipe($.plumber())
       .pipe($.sass({ outputStyle: 'compressed' }))
       // .pipe($.purifycss(purifyContent)) // (Optional) disable if you don't want to cut unused CSS.
-      .pipe($.postcss(plugins)) // (Optional) disable if you don't want to use PostCSS plugins.
+      // .pipe($.postcss(plugins)) // (Optional) disable if you don't want to use PostCSS plugins.
       // .pipe($.csso())
       .pipe($.rename({ suffix: '.min' }))
       //  .pipe($.stylelint(styleLintSetting)) // (Optional) enable if you need to lint final CSS file.
