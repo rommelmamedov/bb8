@@ -26,7 +26,8 @@
     "browser-sync": "2.26.13",
     "del": "6.0.0",
     "gulp": "4.0.2",
-    "merge-stream": "2.0.0"
+    "merge-stream": "2.0.0",
+    "require-dir": "^1.2.0"
   },
   "devDependencies": {
     "autoprefixer": "10.2.1",
